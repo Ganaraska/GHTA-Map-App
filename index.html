@@ -41,22 +41,62 @@
     }
     </style>
 
-    <h2>GANARASKA HIKING TRAIL GEOLOCATION APP</h2>
+    <h2>GANARASKA HIKING TRAIL GEOLOCATION MAP-APP</h2>
 
 
     <div id="map"></div>
     
 </body>
 
+
+
 <script>
 
 var map = L.map('map');
 map.setView([44.613927, -79.414964], 13);
 
+
+// DEFAULT OSM LAYER
+
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap, GoTheDistanceMaps, GHTA Inc.</a>'
 }).addTo(map);
+
+
+// Adding other OSM Tile Layers: OpenStreetMap, OpenTopoMap, OpenStreetMap_Alt, and CycleOSM so hiker can choose between them.
+// Note: OTM & CycleOSM have contours. 
+    
+var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    //attribution: '© OpenStreetMap'
+});
+
+var otm = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    //attribution: '© OpenStreetMap, OpenTopoMap, GoTheDistanceMaps & GHTA Inc.'
+});
+
+var osm_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	//attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+});
+
+var CycleOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	//attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
+var baseMaps = {
+    "OpenStreetMap (Standard)": osm,
+    "OpenStreetMap (Alt)": osm_HOT,
+    "OSM Cycle/Hiking (TCT & Contours)": CycleOSM,
+    "OpenTopoMap (Contours)": otm,
+};
+
+L.control.layers(baseMaps).addTo(map);
+
+
 
 
 // Add a scale bar to the map-------------------------------------------------------------------------------------
@@ -86,42 +126,44 @@ updateWhenIdle: false // Update the scale bar on move
 // NAVIGATOR (https://www.youtube.com/watch?v=NyjMmNCtKf4)----------------------------------------------------------------
 
 
-navigator.geolocation.watchPosition(success, error);
+        navigator.geolocation.watchPosition(success, error);
 
-let marker, circle, zoomed;
+        let marker, circle, zoomed;
 
-function success(pos) {
+        function success(pos) {
 
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
-    const accuracy = pos.coords.accuracy;
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            const accuracy = pos.coords.accuracy;
 
-        if (marker) {
-                map.removeLayer(marker);
-                map.removeLayer(circle);
+                if (marker) {
+                        map.removeLayer(marker);
+                        map.removeLayer(circle);
 
-        }
+             }
 
-     marker = L.marker([lat, lng]).addTo(map);
-    circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);  // Original code.
+            marker = L.marker([lat, lng]).addTo(map);
+            circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);  // Original code.
     //circle = L.circle([lat, lng], { radius: accuracy, color: 'salmon' }).addTo(map);  // Added color to circle and it works! But, I'll keep it blue.
 
 
-        if (!zoomed) {
-        zoomed = map.fitBounds(circle.getBounds());
-    }
-
-    map.setView([lat, lng]);
-}
-
-function error(err) {
-
-            if (err.code === 1) {
-                alert("Please allow geolocation access.");
-            } else {
-                alert("Unable to get current location");
+                if (!zoomed) {
+                zoomed = map.fitBounds(circle.getBounds());
             }
-}
+
+            map.setView([lat, lng]);
+        }
+
+        function error(err) {
+
+                    if (err.code === 1) {
+                        alert("Please allow geolocation access.");
+                    } else {
+                        alert("Unable to get current location");
+                    }
+        }
+
+
 
 
 // Decimal Degrees on a click:------------------------------------------------------------------------------------------------
@@ -213,6 +255,15 @@ map.on('click', onMapClick);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//Leaflet Measure (A work in progess...):
+
+//L.control.measure({
+        //primaryLengthUnit: "Kilometres",
+        //secondaryLengthUnit: "Metres",
+        
+//}).addTo(map);
+
+//         //              //                  //                 //                //
 
 
 // GHTA TRAIL NETWORK:
@@ -221,9 +272,13 @@ map.on('click', onMapClick);
 // THERE ARE 10 MAIN TRAILS:
 // PINE RIDGE, KAWARTHA, WILDERNESS, ORILLIA, BARRIE, MAD RIVER, WASAGA BEACH, TINY, MIDLAND, AND ORO-MEDONTE.
 
+
+
+
 // (Here's how to make circles with a specific radius and other attributes plus a popup bubble! 
 //     Note the new circle variable like 'circleOrilliaStart'
 //     and NOT just circle which gets confusing with the geocoding circle variable above).
+
 
 var circlePineRidgeStart = L.circle([43.949146, -78.292529], { 
     color: 'tomato',
@@ -232,7 +287,8 @@ var circlePineRidgeStart = L.circle([43.949146, -78.292529], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circlePineRidgeStart.bindPopup("<h3>Pine Ridge Start</h3><p><b>This is where the Ganaraska Hiking Trail begins!</b> The Pine Ridge section starts at the cairn opposite the Town Hall in Port Hope beside the Ganaraska River and within sight of Lake Ontario. The initial part is fairly flat, following the Ganaraska River. Be sure to see the fish ladder that allows fish to bypass the dam, near Highway 401. Then the trail follows country roads and paths through farmland and the Ganaraska Forest and skirts the Peterborough Drumlin field.")
+//circlePineRidgeStart.bindPopup("<h3>Pine Ridge Start</h3><p><b>This is where the Ganaraska Hiking Trail begins!</b> The Pine Ridge section starts at the cairn opposite the Town Hall in Port Hope beside the Ganaraska River and within sight of Lake Ontario. The initial part is fairly flat, following the Ganaraska River. Be sure to see the fish ladder that allows fish to bypass the dam, near Highway 401. Then the trail follows country roads and paths through farmland and the Ganaraska Forest and skirts the Peterborough Drumlin field.")
+ circlePineRidgeStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2022/03/Trail-Guide-Description-Pine-Ridge-20210913.docx.pdf" target="_blank"><h4>Pine Ridge Trail Guide</h4></a><p><b><h3>Pine Ridge Start</h3></b><p>43.949188, -78.292568<p>The Pine Ridge section starts at the cairn opposite the Town Hall in Port Hope beside the Ganaraska River and within sight of Lake Ontario. The initial part is fairly flat, following the Ganaraska River. Be sure to see the fish ladder that allows fish to bypass the dam, near Highway 401. Then the trail follows country roads and paths through farmland and the Ganaraska Forest and skirts the Peterborough Drumlin field.');
 
 
 var circleKawarthaStart = L.circle([44.291935, -78.630902], { 
@@ -242,7 +298,8 @@ var circleKawarthaStart = L.circle([44.291935, -78.630902], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circleKawarthaStart.bindPopup("<h3>Kawartha Start</h3><p>The first 50 kilometres are flat, and skirts through the Kawartha Lakes. The next 20 kilometres are rugged in Canadian Shield country, a vast geological region characterized by exposed Precambrian rock.")
+//circleKawarthaStart.bindPopup("<h3>Kawartha Start</h3><p>The first 50 kilometres are flat, and skirts through the Kawartha Lakes. The next 20 kilometres are rugged in Canadian Shield country, a vast geological region characterized by exposed Precambrian rock.")
+circleKawarthaStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2025/12/Trail-Guide-Description-Kawartha-20220627.pdf" target="_blank"><h4>Kawartha Trail Guide</h4></a><p><b><h3>Kawartha Start</h3></b><p>44.291953, -78.630893<p>The first 50 kilometres are flat, and skirts through the Kawartha Lakes. The next 20 kilometres are rugged in Canadian Shield country, a vast geological region characterized by exposed Precambrian rock.');
 
 
 var circleWildernessStart = L.circle([44.806938, -78.813207], { 
@@ -252,7 +309,8 @@ var circleWildernessStart = L.circle([44.806938, -78.813207], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circleWildernessStart.bindPopup("<h3>Wilderness Start</h3><p>As well as being scenic, it is rugged and challenging. DO NOT hike this section alone! It is strongly recommended that the Wilderness Section only be hiked with an experienced hiker familiar with the Trail. Main trail is 58 kms, 72 kms in total with side trails.");
+//circleWildernessStart.bindPopup("<h3>Wilderness Start</h3><p>As well as being scenic, it is rugged and challenging. DO NOT hike this section alone! It is strongly recommended that the Wilderness Section only be hiked with an experienced hiker familiar with the Trail. Main trail is 58 kms, 72 kms in total with side trails.");
+circleWildernessStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2025/03/Wilderness-Trail-Guide-Description-20250322.pdf" target="_blank"><h4>Wilderness Trail Guide</h4></a><p><b><h3>Wilderness Start</h3></b><p>44.806887, -78.813281<p>As well as being scenic, it is rugged and challenging. DO NOT hike this section alone! It is strongly recommended that the Wilderness Section only be hiked with an experienced hiker familiar with the Trail. Main trail is 58 kms, 72 kms in total with side trails.');
 
 
 var circleOrilliaStart = L.circle([44.756539, -79.15518], { 
@@ -262,8 +320,9 @@ var circleOrilliaStart = L.circle([44.756539, -79.15518], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circleOrilliaStart.bindPopup("<h3>Orillia Start</h3><p>44.7565423, -79.1551879<p>The Orillia section starts at Sadowa and ends after almost 70 kilometres at Oro Medonte Line 6N in Sugarbush Estates south of Horseshoe Valley Road. From Sadowa to Atherley the trail is primarily on country roads, mostly quite peaceful and scenic. The trail then skirts the shore of Lake Couchiching and runs along the Lightfoot Trail system through the City of Orillia following the Mariposa Trail. It heads south to cross under Highway 11 and through Scout Valley west of the highway. This area is picturesque and suitable for novices. It then runs west on roads turning north and finally east through fields and woods. Overall, the trail is mostly flat and presents a variety of hiking locales from lakeside parks to rural woodlands<p>For more detailed trail information:<a href='https://ganaraska-hiking-trail.org/wp-content/uploads/2025/11/Orillia-Trail-Guide-Description-20251123.pdf'><br>Orillia Trail Guide</a>");
-  
+// (Version 1) circleOrilliaStart.bindPopup("<h3>Orillia Start</h3><p>44.7565423, -79.1551879<p>The Orillia section starts at Sadowa and ends after almost 70 kilometres at Oro Medonte Line 6N in Sugarbush Estates south of Horseshoe Valley Road. From Sadowa to Atherley the trail is primarily on country roads, mostly quite peaceful and scenic. The trail then skirts the shore of Lake Couchiching and runs along the Lightfoot Trail system through the City of Orillia following the Mariposa Trail. It heads south to cross under Highway 11 and through Scout Valley west of the highway. This area is picturesque and suitable for novices. It then runs west on roads turning north and finally east through fields and woods. Overall, the trail is mostly flat and presents a variety of hiking locales from lakeside parks to rural woodlands<p>For more detailed trail information:<a href=https://ganaraska-hiking-trail.org/wp-content/uploads/2025/11/Orillia-Trail-Guide-Description-20251123.pdf'><br>Orillia Trail Guide</a>");
+ circleOrilliaStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2025/11/Orillia-Trail-Guide-Description-20251123.pdf" target="_blank"><h4>Orillia Trail Guide</h4></a><p><b><h3>Orillia Start</h3></b><p>44.7565423, -79.1551879<p>The Orillia section starts at Sadowa and ends after almost 70 kilometres at Oro Medonte Line 6N in Sugarbush Estates south of Horseshoe Valley Road. From Sadowa to Atherley the trail is primarily on country roads, mostly quite peaceful and scenic. The trail then skirts the shore of Lake Couchiching and runs along the Lightfoot Trail system through the City of Orillia following the Mariposa Trail. It heads south to cross under Highway 11 and through Scout Valley west of the highway. This area is picturesque and suitable for novices. It then runs west on roads turning north and finally east through fields and woods. Overall, the trail is mostly flat and presents a variety of hiking locales from lakeside parks to rural woodlands.');
+ 
     
 var circleBarrieStart = L.circle([44.5553241,-79.6189653], { 
     color: 'purple',
@@ -272,7 +331,8 @@ var circleBarrieStart = L.circle([44.5553241,-79.6189653], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circleBarrieStart.bindPopup("<h3>Barrie Start</h3><p>44.555427, -79.618947<p>The Barrie section provides a variety of hiking experiences and goes through many Simcoe County Forest tracts, Copeland Forest, Springwater Provincial Park and Minesing Wetlands. There is some road walking, some rail trail walking, and lots of forest trails. Both novice and experienced hikers will find something to enjoy. Approx. 50 kms.</p>For more detailed trail information:<a href= 'https://ganaraska-hiking-trail.org/wp-content/uploads/2023/11/Trail-Guide-Description-Barrie-20231026.pdf'><br>Barrie Trail Guide</a>");
+//circleBarrieStart.bindPopup("<h3>Barrie Start</h3><p>44.555427, -79.618947<p>The Barrie section provides a variety of hiking experiences and goes through many Simcoe County Forest tracts, Copeland Forest, Springwater Provincial Park and Minesing Wetlands. There is some road walking, some rail trail walking, and lots of forest trails. Both novice and experienced hikers will find something to enjoy. Approx. 50 kms.</p>For more detailed trail information:<a href= 'https://ganaraska-hiking-trail.org/wp-content/uploads/2023/11/Trail-Guide-Description-Barrie-20231026.pdf'><br>Barrie Trail Guide</a>");
+circleBarrieStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2023/11/Trail-Guide-Description-Barrie-20231026.pdf" target="_blank"><h4>Barrie Trail Guide</h4></a><p><b><h3>Barrie Start</h3></b><p>44.5553, -79.6189<p>The Barrie section provides a variety of hiking experiences and goes through many Simcoe County Forest tracts, Copeland Forest, Springwater Provincial Park and Minesing Wetlands. There is some road walking, some rail trail walking, and lots of forest trails. Both novice and experienced hikers will find something to enjoy. Approx. 50 kms.');
 
 
 var circleMadRiverStart = L.circle([44.340345, -79.84295], { 
@@ -282,7 +342,8 @@ var circleMadRiverStart = L.circle([44.340345, -79.84295], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circleMadRiverStart.bindPopup("<h3>Mad River Start</h3><p>The Mad River section derives its name from the river which runs parallel to the trail in many places. Sometimes in the spring, west of Avening, trout can be seen going upstream to spawn. There are some outstanding scenic views from Ten Hill and McKinney’s Hill. The Mad River section passes through the Hogback, Brentwood, and Lawden (aka Louden) Tracts of the Simcoe County Forests, as well as through the New Lowell, Carruthers Memorial and Glencairn Conservation areas, and the Escarpment Biosphere Reserve. The Mad River section meets the Bruce Trail high above Glen Huron at the Western Cairn of the Ganaraska Hiking Trail.");
+//circleMadRiverStart.bindPopup("<h3>Mad River Start</h3><p>The Mad River section derives its name from the river which runs parallel to the trail in many places. Sometimes in the spring, west of Avening, trout can be seen going upstream to spawn. There are some outstanding scenic views from Ten Hill and McKinney’s Hill. The Mad River section passes through the Hogback, Brentwood, and Lawden (aka Louden) Tracts of the Simcoe County Forests, as well as through the New Lowell, Carruthers Memorial and Glencairn Conservation areas, and the Escarpment Biosphere Reserve. The Mad River section meets the Bruce Trail high above Glen Huron at the Western Cairn of the Ganaraska Hiking Trail.");
+circleMadRiverStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2024/09/Mad-River-Trail-Guide-Description-20240903.pdf" target="_blank"><h4>Mad River Trail Guide</h4></a><p><b><h3>Mad River Start</h3></b><p>44.340297, -79.842845<p>The Mad River section derives its name from the river which runs parallel to the trail in many places. Sometimes in the spring, west of Avening, trout can be seen going upstream to spawn. There are some outstanding scenic views from Ten Hill and McKinney’s Hill. The Mad River section passes through the Hogback, Brentwood, and Lawden (aka Louden) Tracts of the Simcoe County Forests, as well as through the New Lowell, Carruthers Memorial and Glencairn Conservation areas, and the Escarpment Biosphere Reserve. The Mad River section meets the Bruce Trail high above Glen Huron at the Western Cairn of the Ganaraska Hiking Trail.');
 
 
 var circleWasagaBeachStart = L.circle([44.565394, -79.994545], { 
@@ -292,7 +353,8 @@ var circleWasagaBeachStart = L.circle([44.565394, -79.994545], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circleWasagaBeachStart.bindPopup("<h3>Wasaga Beach Start</h3><p>The trail winds through the fragile ancient parabolic sand dunes of Wasaga Beach Provincial Park to Wasaga Beach, providing great views of the Nottawasaga River deep below in the valley. From there, the trail goes through the valley of the McIntyre Creek and passes along quiet country roads to Smithdale, east of Glen Huron, where it connects with the Mad River section. The section is about 48.5 kilometres long and is suitable for novices.")
+//circleWasagaBeachStart.bindPopup("<h3>Wasaga Beach Start</h3><p>The trail winds through the fragile ancient parabolic sand dunes of Wasaga Beach Provincial Park to Wasaga Beach, providing great views of the Nottawasaga River deep below in the valley. From there, the trail goes through the valley of the McIntyre Creek and passes along quiet country roads to Smithdale, east of Glen Huron, where it connects with the Mad River section. The section is about 48.5 kilometres long and is suitable for novices.")
+circleWasagaBeachStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2022/03/Trail-Guide-Description-Wasaga-Beach-20210613.docx.pdf" target="_blank"><h4>Wasaga Beach Trail Guide</h4></a><p><b><h3>Wasaga Beach Start</h3></b><p>44.565332, -79.994548<p>The trail winds through the fragile ancient parabolic sand dunes of Wasaga Beach Provincial Park to Wasaga Beach, providing great views of the Nottawasaga River deep below in the valley. From there, the trail goes through the valley of the McIntyre Creek and passes along quiet country roads to Smithdale, east of Glen Huron, where it connects with the Mad River section. The section is about 48.5 kilometres long and is suitable for novices.');
 
 // Additional Circle & Other Information Popups
 
@@ -303,7 +365,7 @@ var circleMadRiverMeetsBruceTrail = L.circle([44.347052, -80.19331], {
     radius: 300
 }).addTo(map);
 // Add this to create a popup for the 
-circleMadRiverMeetsBruceTrail.bindPopup("<h3>Major Trail Connection</h3><p>Here is where the Ganaraska Trail joins the Bruce Trail")
+circleMadRiverMeetsBruceTrail.bindPopup("<h3>Major Trail Connection</h3><p>Here is where the <b>Ganaraska Trail</b> joins the <b>Bruce Trail</b>")
 
 
 var circleTinyStart = L.circle([44.749994, -79.960299], { 
@@ -312,7 +374,8 @@ var circleTinyStart = L.circle([44.749994, -79.960299], {
     fillOpacity: 0.3,
     radius: 300
 }).addTo(map);
-circleTinyStart.bindPopup("<h3>Tiny Trail Start</h3><p>The trail goes through the Thompson Tract of Simcoe County Forests along the Tiny Trail (railtrail) and through the Tiny Marsh which is a great location to view and listen to wildlife as you walk along the berms. Several species of waterfowl nest in the marsh and during spring and summer the wildflowers are gorgeous and there are large batches of colorful dragonflies and butterflies along the trail. The section is mostly flat, with a couple of hills, and is suitable for beginners. 50 kms in length.")
+//circleTinyStart.bindPopup("<h3>Tiny Trail Start</h3><p>The trail goes through the Thompson Tract of Simcoe County Forests along the Tiny Trail (railtrail) and through the Tiny Marsh which is a great location to view and listen to wildlife as you walk along the berms. Several species of waterfowl nest in the marsh and during spring and summer the wildflowers are gorgeous and there are large batches of colorful dragonflies and butterflies along the trail. The section is mostly flat, with a couple of hills, and is suitable for beginners. 50 kms in length.")
+circleTinyStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2024/05/Trail-Guide-Description-Tiny-20240228.pdf" target="_blank"><h4>Tiny Trail Guide</h4></a><p><b><h3>Tiny Start</h3></b><p>44.75001, -79.96029<p>The trail goes through the Thompson Tract of Simcoe County Forests along the Tiny Trail (railtrail) and through the Tiny Marsh which is a great location to view and listen to wildlife as you walk along the berms. Several species of waterfowl nest in the marsh and during spring and summer the wildflowers are gorgeous and there are large batches of colorful dragonflies and butterflies along the trail. The section is mostly flat, with a couple of hills, and is suitable for beginners. 50 kms in length');
 
 
 var circleMidlandStart = L.circle([44.677037, -79.741592], { 
@@ -321,7 +384,8 @@ var circleMidlandStart = L.circle([44.677037, -79.741592], {
     fillOpacity: 0.3,
     radius: 300
 }).addTo(map);
-circleMidlandStart.bindPopup("<h3>Midland Trail Start</h3><p>The first 13.5 km part of the Midland section of the Ganaraska Hiking Trail is mostly off-road. Starting just north of Vasey Road, the southern half of the Midland section generally follows a fence line over private land. The northern half follows a snowmobile trail and the Tay Shore Trail, or its off-road twinning trail. The second part of the Midland section starts at the Wye River, adjacent to Sainte Marie Among the Hurons and the Martyrs’ Shrine, on the outskirts of Midland, and follows the Wye River, the Midland waterfront with its gorgeous views of Georgian Bay. It continues through forests and ends at Overheadbridge Road in Tiny Township, which is the start of the Tiny section. This section is on flat or undulating terrain. Some of the trail is a dirt path, some of the urban trails are paved. 28 kms in total.")    
+//circleMidlandStart.bindPopup("<h3>Midland Trail Start</h3><p>The first 13.5 km part of the Midland section of the Ganaraska Hiking Trail is mostly off-road. Starting just north of Vasey Road, the southern half of the Midland section generally follows a fence line over private land. The northern half follows a snowmobile trail and the Tay Shore Trail, or its off-road twinning trail. The second part of the Midland section starts at the Wye River, adjacent to Sainte Marie Among the Hurons and the Martyrs’ Shrine, on the outskirts of Midland, and follows the Wye River, the Midland waterfront with its gorgeous views of Georgian Bay. It continues through forests and ends at Overheadbridge Road in Tiny Township, which is the start of the Tiny section. This section is on flat or undulating terrain. Some of the trail is a dirt path, some of the urban trails are paved. 28 kms in total.")    
+circleMidlandStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2025/04/Midland-Trail-Guide-Description-20250418-2.pdf" target="_blank"><h4>Midland Trail Guide</h4></a><p><b><h3>Midland Start</h3></b><p>44.677061, -79.741691<p>The first 13.5 km part of the Midland section of the Ganaraska Hiking Trail is mostly off-road. Starting just north of Vasey Road, the southern half of the Midland section generally follows a fence line over private land. The northern half follows a snowmobile trail and the Tay Shore Trail, or its off-road twinning trail. The second part of the Midland section starts at the Wye River, adjacent to Sainte Marie Among the Hurons and the Martyrs’ Shrine, on the outskirts of Midland, and follows the Wye River, the Midland waterfront with its gorgeous views of Georgian Bay. It continues through forests and ends at Overheadbridge Road in Tiny Township, which is the start of the Tiny section. This section is on flat or undulating terrain. Some of the trail is a dirt path, some of the urban trails are paved. 28 kms in total.');
 
 
 var circleOroMedonteStart = L.circle([44.5715436,-79.6745914], { 
@@ -331,7 +395,8 @@ var circleOroMedonteStart = L.circle([44.5715436,-79.6745914], {
     weight: 3,
     radius: 300
 }).addTo(map);
-circleOroMedonteStart.bindPopup("<h3>Oro-Medonte Trail Start</h3><p>Gentle undulating terrain, suitable for beginners, 18.5 km in length. The south end of the Oro Medonte trail starts in the Copeland Forest, north of Barrie, where it branches off the Barrie trail going north to Vasey Road.")
+//circleOroMedonteStart.bindPopup("<h3>Oro-Medonte Trail Start</h3><p>Gentle undulating terrain, suitable for beginners, 18.5 km in length. The south end of the Oro Medonte trail starts in the Copeland Forest, north of Barrie, where it branches off the Barrie trail going north to Vasey Road.")
+circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2024/10/Oro-Medonte-Trail-Guide-Description-20241018.pdf" target="_blank"><h4>Oro-Medonte Trail Guide</h4></a><p><b><h3>Oro-Medonte Start</h3></b><p>44.571562, -79.674606<p>Gentle undulating terrain, suitable for beginners, 18.5 km in length. The south end of the Oro Medonte trail starts in the Copeland Forest, north of Barrie, where it branches off the Barrie trail going north to Vasey Road.');
 
 
     // Hazard Symbols
@@ -351,9 +416,17 @@ circleOroMedonteStart.bindPopup("<h3>Oro-Medonte Trail Start</h3><p>Gentle undul
     var hazardOroMedonte1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
         L.marker([44.583382, -79.68281],{icon:hazardOroMedonte1icon}).addTo(map).bindPopup("DANGEROUS RAILWAY X-ING");
 
-    
-    
-    
+    var hazardMidland1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        L.marker([44.729669, -79.802372],{icon:hazardMidland1icon}).addTo(map).bindPopup("DANGEROUS X-ING OVER HWY 12 <br>(a.k.a. Isobel's Crossing .)");   
+  
+        
+        // Parking WILDERNESS
+
+    var parkingWilderness1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.806185,-78.813349],{icon:parkingWilderness1icon}).addTo(map).bindPopup("Parking availale along Country Rd. This marks the end of the <b>Kawartha</b> trail and the beginning of the <b>Wilderness</b> trail.");
+
+        
+
     
         // Parking ORILLIA
 
@@ -397,15 +470,93 @@ circleOroMedonteStart.bindPopup("<h3>Oro-Medonte Trail Start</h3><p>Gentle undul
     // Parking BARRIE
     
     var parkingBarrie1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         L.marker([44.556160, -79.620057],{icon:parkingBarrie1icon}).addTo(map).bindPopup("Parking is accessed from Diamond Valley Dr for ~ 5 vehicles by the side of the road.");
+         L.marker([44.556160, -79.620057],{icon:parkingBarrie1icon}).addTo(map).bindPopup("Parking is accessed from <b>Diamond Valley Dr</b> for ~ 5 vehicles by the side of the road.");
 
 
     var parkingBarrie2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
          L.marker([44.53972, -79.701991],{icon:parkingBarrie2icon}).addTo(map).bindPopup("<b>Limited parking</b> south of Horseshoe Valley Rd & Mcnutt Rd.");
 
 
+    var parkingBarrie3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.517599, -79.747822],{icon:parkingBarrie3icon}).addTo(map).bindPopup("Parking available on <b>Old Second Rd</b>, just south of Horsehsoe Valley Rd.");
 
-                // BELOW IS THE GANARASKA HIKING TRAIL NETWORK IN DECIMAL DEGREES FOR EACH VERTEX (GPX POINT). 
+
+    var parkingBarrie4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.472777, -79.745553],{icon:parkingBarrie4icon}).addTo(map).bindPopup("Parking available just north of <b>raliway</b> at start of <b>Bear Creek Side Trail</b>.");
+
+    var parkingBarrie5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.450203, -79.73272],{icon:parkingBarrie5icon}).addTo(map).bindPopup("<b>Midhurst Community Centre:</b><br> This parking lot is available to hikers but should not be used on Sundays as services are held in the Community Centre and the parking lot has limited capacity.");
+
+    var parkingBarrie6icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.444979, -79.740149],{icon:parkingBarrie6icon}).addTo(map).bindPopup("<b>Commuter Parking Lot</b> at junction of Hwy 26 & 27.");    
+    
+    var parkingBarrie7icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.443834, -79.748532],{icon:parkingBarrie7icon}).addTo(map).bindPopup("There is parking at the <b>Museum</b>, as well as across the road at the County of Simcoe Administration building.");    
+    
+    var parkingBarrie8icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.39425, -79.82031],{icon:parkingBarrie8icon}).addTo(map).bindPopup("Fort Willow Parking Lot (PAYMENT REQUIRED)."); 
+    
+    var parkingBarrie9icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.39543, -79.80065],{icon:parkingBarrie9icon}).addTo(map).bindPopup("George Johnson Road parking lot beside Huronia Tract."); 
+
+    var parkingBarrie9icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.37877,-79.82517],{icon:parkingBarrie9icon}).addTo(map).bindPopup("Small parking lot by Miller Tract on west side of Pinegrove Rd."); 
+
+    //var parkingBarrie9icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         //L.marker([44.39425, -79.82031],{icon:parkingBarrie9icon}).addTo(map).bindPopup("NOT MENTIONED IN TRAIL GUIDE");        
+ 
+         
+    
+    // PARKING MIDLAND
+
+    var parkingMidland1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.677363,-79.741924],{icon:parkingMidland1icon}).addTo(map).bindPopup("There is limited parking on the shoulder of Reeves Road. <b>Dogs are NOT allowed</b> on this section at the request of the landowner who owns sheep."); 
+    
+    var parkingMidland2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.705068, -79.751699],{icon:parkingMidland2icon}).addTo(map).bindPopup("Hogg Valley Road has roadside parking. <b>Please do NOT block the gate</b>."); 
+
+    var parkingMidland3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.72085, -79.768405],{icon:parkingMidland3icon}).addTo(map).bindPopup("There is limited parking here on the shoulder. <b>Please do NOT block the entrances to the snowmobile trail</b>."); 
+
+    var parkingMidland4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.736689, -79.846243],{icon:parkingMidland4icon}).addTo(map).bindPopup("<b>Sainte Marie Park</b> parking lot north side of HWY 12 on the east side of Wye Valley Rd has plenty of parking (not to be confused with Sainte Marie Among the Hurons parking lot, which is on the SE side of the Wye River & Hwy 12)."); 
+
+    var parkingMidland5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.759095, -79.878471],{icon:parkingMidland5icon}).addTo(map).bindPopup("<b>Small parking lot</b> for approximately 8 cars on the west side of Aberdeen Blvd., but only park on the south side of the office buildings."); 
+
+    var parkingMidland6icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.752071, -79.88803],{icon:parkingMidland6icon}).addTo(map).bindPopup("<b>Downtown Midland & Harbour</b>. Municipal parking lot is currently free, but this may change. Washrooms at the Harbour Master building during the summer months (Victoria Day to Thanksgiving). Restaurants, groceries, coffee shops, etc.");
+
+    var parkingMidland7icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.755152, -79.898802],{icon:parkingMidland7icon}).addTo(map).bindPopup("Large parking lot at <b>Pete Pettersen Park</b> with its beach, boat launch, playground, baseball field, and views of Georgian Bay, as well as Bayport Marina and the Midland Sailing Club. Lots of free parking!");
+
+    var parkingMidland8icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.759686, -79.903249],{icon:parkingMidland8icon}).addTo(map).bindPopup("Parking at Corner of Harbourview & Sunnyside.");
+
+    var parkingMidland9icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.74367, -79.956463],{icon:parkingMidland9icon}).addTo(map).bindPopup("New large parking lot");
+
+    var parkingMidland10icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.74479, -79.94370],{icon:parkingMidland10icon}).addTo(map).bindPopup("Parking on Wilson Road");
+
+         // POI - Points-Of-Interest
+
+    var pointofinterestKawartha1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.357004, -78.735594],{icon:pointofinterestKawartha1icon}).addTo(map).bindPopup("Lock 33 <b>Trent Severn Waterway</b> has benches, picnic tables, & washrooms");
+
+    var pointofinterestPineRide1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([43.976988,-78.332168],{icon:pointofinterestPineRide1icon}).addTo(map).bindPopup("<b>Northumberland Hills Drumlins</b><br>Drumlins are elongated, oval-shaped mounds of glacial till deposited and shaped beneath advancing ice sheets during the last ice age.");
+
+    var pointofiterestBarrie1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.547926, -79.675877],{icon:pointofiterestBarrie1icon}).addTo(map).bindPopup("Horseshoe Valley Ski Resort");
+
+    var pointofiterestBarrie2icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.409808, -79.791043],{icon:pointofiterestBarrie2icon}).addTo(map).bindPopup("Snow Valley Ski Resort");
+
+
+
+
+         // BELOW IS THE GANARASKA HIKING TRAIL NETWORK IN DECIMAL DEGREES FOR EACH VERTEX (GPX POINT). 
                 // EACH TRAIL HAS BEEN SIMPLIFIED TO REMOVE REDUNDANT POINTS TO REDUCE THE NUMBER OF COORDINATE PAIRS.
                 // IN SOME CASES, THE ORIGINAL GPX TRAIL CONTAINED OVER 4,000 POINTS, BUT WAS REDUCED TO 500 TO 1,000 POINTS. 
 
@@ -776,7 +927,74 @@ circleOroMedonteStart.bindPopup("<h3>Oro-Medonte Trail Start</h3><p>Gentle undul
 ];
 
 var polyline = L.polyline(latlngs, {color: 'tomato', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Pine Ridge Trail</b><br>");
+//polyline.bindPopup("<b>Pine Ridge Trail</b><br>");
+polyline.bindPopup('<a href="https://www.pineridgehikingclub.ca//" target="_blank">www.pineridgehikingclub.ca</a><p><b>Pine Ridge Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+
+
+
+                // Pine Ridge - Ganaraska Forest Bypass Side Trail
+
+var latlngs = [
+    [44.0817462, -78.4638539],
+    [44.0816004, -78.4643063],
+    [44.0814820, -78.4647032],
+    [44.0814028, -78.4651321],
+    [44.0814028, -78.4657471],
+    [44.0812837, -78.4661194],
+    [44.0811597, -78.4665501],
+    [44.0810702, -78.4670414],
+    [44.0808896, -78.4674182],
+    [44.0807817, -78.4677847],
+    [44.0806391, -78.4682627],
+    [44.0805324, -78.4688141],
+    [44.0804839, -78.4692163],
+    [44.0804839, -78.4696164],
+    [44.0803765, -78.4700047],
+    [44.0803150, -78.4705628],
+    [44.0802584, -78.4709998],
+    [44.0802070, -78.4714263],
+    [44.0799778, -78.4718540],
+    [44.0798736, -78.4722567],
+    [44.0797190, -78.4727527],
+    [44.0795741, -78.4732022],
+    [44.0794874, -78.4738154],
+    [44.0793749, -78.4741656],
+    [44.0793239, -78.4746220],
+    [44.0792359, -78.4750225],
+    [44.0791541, -78.4753780],
+    [44.0790430, -78.4757647],
+    [44.0788618, -78.4761230],
+    [44.0787856, -78.4764858],
+    [44.0787637, -78.4765843],
+    [44.0724910, -78.5046117],
+    [44.0728500, -78.5047582],
+    [44.0731180, -78.5049365],
+    [44.0734054, -78.5049153],
+    [44.0736884, -78.5047179],
+    [44.0739205, -78.5046615],
+    [44.0741528, -78.5044688],
+    [44.0743931, -78.5042313],
+    [44.0747205, -78.5040699],
+    [44.0749924, -78.5038654],
+    [44.0752376, -78.5037307],
+    [44.0755133, -78.5037901],
+    [44.0755694, -78.5041854],
+    [44.0752906, -78.5046224],
+    [44.0751246, -78.5049230],
+    [44.0750436, -78.5052572],
+    [44.0750208, -78.5056738],
+    [44.0751811, -78.5059816],
+    [44.0755390, -78.5060673],
+    [44.0756794, -78.5062097],
+    [44.1058513, -78.5191502],
+    [44.1061039, -78.5192895],
+    [44.1061347, -78.5193392],
+];
+
+    var polyline = L.polyline(latlngs, {color: 'crimson', weight: 5}).addTo(map);
+    //polyline.bindPopup("<b>Pine Ridge</b><br>Ganaraska Forest Bypass Side Trail"); (Original)
+
+
 
 var circledotPineRidgeStart = L.circle([43.949146, -78.292529], { 
     color: 'tomato',
@@ -1184,7 +1402,10 @@ var circledotPineRidgeStart = L.circle([43.949146, -78.292529], {
 ];
 
 var polyline = L.polyline(latlngs, {color: 'green', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Kawartha Main Trail</b><br>");
+polyline.bindPopup('<a href="https://www.facebook.com/kawarthahikingclub" target="_blank">www.facebook.com/kawarthahikingclub</a><p><b>Kawartha Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+
+    //polyline.bindPopup('<a href="https://www.facebook.com/GHTAOrillia/" target="_blank">www.facebook.com/GHTAOrillia</a><p><b>Orillia Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+
 
 var circledotKawarthStart = L.circle([44.2919050, -78.6308860], { 
     color: 'green',
@@ -2259,7 +2480,10 @@ var latlngs = [
 ];
 
 var polyline = L.polyline(latlngs, {color: 'steelblue', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Wilderness Main Trail</b><br>");
+// polyline.bindPopup("<b>Wilderness Main Trail</b><br>");
+
+    polyline.bindPopup('<a href="https://www.facebook.com/GHTAwilderness/" target="_blank">www.facebook.com/GHTAwilderness</a><p><b>Wilderness Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+
 
 var circledotWildernessStart = L.circle([44.8068830, -78.8132760], { 
     color: 'steelblue',
@@ -3760,7 +3984,7 @@ var latlngs = [
 ];
 
 var Orilliapolyline = L.polyline(latlngs, {color: 'orange', weight: 6}).addTo(map);
-//Orilliapolyline.bindPopup("<b>Orillia Main Trail</b><p>"); //This is the original popup.
+//Orilliapolyline.bindPopup("<b>Orillia Main Trail</b><p>"); //This is the original popup. (Original)
     Orilliapolyline.bindPopup('<a href="https://www.facebook.com/GHTAOrillia/" target="_blank">www.facebook.com/GHTAOrillia</a><p><b>Orillia Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
 
 
@@ -4409,9 +4633,11 @@ var circledotWildernessStart = L.circle([44.756539, -79.15518], {
     [44.5554840, -79.6189570],
 ];
 
-var Barriepolyline = L.polyline(latlngs, {color: 'purple', weight: 6}).addTo(map);
-        //Barriepolyline.bindPopup("<b>Barrie Main Trail</b><br>");
-            Barriepolyline.bindPopup('<a href="https://www.facebook.com/GHTAbarrie" target="_blank">www.facebook.com/GHTAOrillia</a><p><b>Barrie Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+        // Interesting that I can call this one "Barriepolyline" and all the others are just "polyline" and it all works. Hmm...
+    var Barriepolyline = L.polyline(latlngs, {color: 'purple', weight: 6}).addTo(map);
+        //Barriepolyline.bindPopup("<b>Barrie Main Trail</b><br>"); (Original)
+        Barriepolyline.bindPopup('<a href="https://www.facebook.com/GHTAbarrie" target="_blank">www.facebook.com/GHTABarrie</a><p><b>Barrie Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+
 
 var circledotBarrieStart = L.circle([44.5553241,-79.6189653], { 
     color: 'purple',
@@ -4420,6 +4646,425 @@ var circledotBarrieStart = L.circle([44.5553241,-79.6189653], {
     weight: 10,
     radius: 20,
 }).addTo(map);
+
+            // Barrie Side Trail - Heather Dalton Memorial Tract
+
+        var latlngs = [
+    [44.4586180, -79.7429229],
+    [44.4585964, -79.7429228],
+    [44.4585366, -79.7428683],
+    [44.4585341, -79.7428775],
+    [44.4584876, -79.7430068],
+    [44.4584612, -79.7432175],
+    [44.4585297, -79.7432413],
+    [44.4584980, -79.7432875],
+    [44.4585109, -79.7432893],
+    [44.4585330, -79.7433601],
+    [44.4585457, -79.7434700],
+    [44.4585844, -79.7434850],
+    [44.4586494, -79.7434422],
+    [44.4587035, -79.7434502],
+    [44.4588023, -79.7435081],
+    [44.4589276, -79.7436459],
+    [44.4590204, -79.7437254],
+    [44.4591161, -79.7438058],
+    [44.4592252, -79.7438589],
+    [44.4593445, -79.7438667],
+    [44.4594593, -79.7440528],
+    [44.4595389, -79.7442552],
+    [44.4596082, -79.7445042],
+    [44.4596147, -79.7447524],
+    [44.4596697, -79.7450405],
+    [44.4596614, -79.7452886],
+    [44.4596801, -79.7454760],
+    [44.4596662, -79.7458079],
+    [44.4597216, -79.7460376],
+    [44.4597506, -79.7462398],
+    [44.4598112, -79.7464620],
+    [44.4598742, -79.7466569],
+    [44.4599930, -79.7468711],
+    [44.4600099, -79.7468975],
+    [44.4601758, -79.7470319],
+    [44.4603402, -79.7471396],
+    [44.4604783, -79.7472591],
+    [44.4606554, -79.7473803],
+    [44.4607587, -79.7475024],
+    [44.4607977, -79.7475816],
+    [44.4608813, -79.7476958],
+    [44.4610536, -79.7478096],
+    [44.4611683, -79.7479246],
+    [44.4612438, -79.7479459],
+    [44.4611750, -79.7479421],
+    [44.4612165, -79.7478802],
+    [44.4612917, -79.7477719],
+    [44.4612916, -79.7477978],
+    [44.4613385, -79.7478558],
+    [44.4614209, -79.7476841],
+    [44.4614595, -79.7475105],
+    [44.4614646, -79.7472921],
+    [44.4613909, -79.7470841],
+    [44.4613760, -79.7467800],
+    [44.4613460, -79.7465707],
+    [44.4612531, -79.7463126],
+    [44.4611391, -79.7460788],
+    [44.4610900, -79.7458795],
+    [44.4610213, -79.7456440],
+    [44.4609783, -79.7454093],
+    [44.4609037, -79.7451442],
+    [44.4607908, -79.7448971],
+    [44.4607153, -79.7446941],
+    [44.4606436, -79.7445456],
+    [44.4605878, -79.7443781],
+    [44.4604896, -79.7441923],
+    [44.4603687, -79.7440288],
+    [44.4602002, -79.7436761],
+    [44.4601300, -79.7434662],
+    [44.4600855, -79.7432866],
+    [44.4598509, -79.7430834],
+    [44.4597122, -79.7430158],
+    [44.4595349, -79.7430442],
+    [44.4593735, -79.7431171],
+    [44.4591702, -79.7431782],
+    [44.4589730, -79.7432740],
+    [44.4587926, -79.7432577],
+    [44.4586940, -79.7433385],
+    [44.4586485, -79.7432424],
+    [44.4585138, -79.7430894],
+    [44.4585377, -79.7430078],
+];
+
+var Barriepolyline = L.polyline(latlngs, {color: 'hotpink', weight: 5}).addTo(map);
+Barriepolyline.bindPopup("<b>Barrie</b><br>Heather Dalton Memorial Side Trail");
+
+            // Barrie Side Trail - Bear's Creek
+
+    var latlngs = [
+    [44.4724578, -79.7457632],
+    [44.4724849, -79.7457563],
+    [44.4724589, -79.7457414],
+    [44.4724371, -79.7457983],
+    [44.4723397, -79.7459460],
+    [44.4722910, -79.7461309],
+    [44.4721943, -79.7463112],
+    [44.4720927, -79.7464689],
+    [44.4720849, -79.7464787],
+    [44.4720134, -79.7466991],
+    [44.4719545, -79.7468903],
+    [44.4718582, -79.7470970],
+    [44.4717881, -79.7473020],
+    [44.4716938, -79.7475273],
+    [44.4716409, -79.7477126],
+    [44.4715317, -79.7479486],
+    [44.4714690, -79.7480056],
+    [44.4713848, -79.7482631],
+    [44.4713278, -79.7485046],
+    [44.4712595, -79.7487080],
+    [44.4712483, -79.7487480],
+    [44.4711297, -79.7489062],
+    [44.4710463, -79.7491129],
+    [44.4709958, -79.7492414],
+    [44.4709873, -79.7492917],
+    [44.4708836, -79.7494664],
+    [44.4708751, -79.7494788],
+    [44.4707965, -79.7497394],
+    [44.4707837, -79.7497513],
+    [44.4706597, -79.7499406],
+    [44.4705952, -79.7501234],
+    [44.4704982, -79.7503521],
+    [44.4704786, -79.7503729],
+    [44.4703636, -79.7505815],
+    [44.4703525, -79.7505925],
+    [44.4702162, -79.7506151],
+    [44.4700543, -79.7505855],
+    [44.4700436, -79.7505896],
+    [44.4699999, -79.7506717],
+    [44.4699558, -79.7507624],
+    [44.4699119, -79.7509824],
+    [44.4699094, -79.7510369],
+    [44.4699030, -79.7512986],
+    [44.4698877, -79.7514887],
+    [44.4698963, -79.7515998],
+    [44.4698914, -79.7517933],
+    [44.4698909, -79.7518528],
+    [44.4698923, -79.7520759],
+    [44.4698875, -79.7520861],
+    [44.4698853, -79.7521604],
+    [44.4699087, -79.7522933],
+    [44.4698201, -79.7523677],
+    [44.4697466, -79.7524012],
+    [44.4697451, -79.7522542],
+    [44.4696637, -79.7520824],
+    [44.4695316, -79.7518212],
+    [44.4694680, -79.7516194],
+    [44.4693958, -79.7513011],
+    [44.4693701, -79.7510853],
+    [44.4693451, -79.7510018],
+    [44.4693122, -79.7507655],
+    [44.4692534, -79.7506624],
+    [44.4692445, -79.7504605],
+    [44.4692326, -79.7502319],
+    [44.4692160, -79.7499641],
+    [44.4691980, -79.7497146],
+    [44.4691542, -79.7494866],
+    [44.4690760, -79.7492796],
+    [44.4689502, -79.7491081],
+    [44.4687579, -79.7491225],
+    [44.4685860, -79.7491514],
+    [44.4684973, -79.7491405],
+    [44.4683466, -79.7490521],
+    [44.4682658, -79.7490154],
+    [44.4681682, -79.7489550],
+    [44.4680064, -79.7488961],
+    [44.4678299, -79.7490025],
+    [44.4676733, -79.7490528],
+    [44.4675473, -79.7491658],
+    [44.4673782, -79.7492659],
+    [44.4672855, -79.7492489],
+    [44.4672257, -79.7491715],
+    [44.4671927, -79.7491757],
+    [44.4671958, -79.7492190],
+    [44.4672161, -79.7493494],
+    [44.4670348, -79.7494818],
+    [44.4669170, -79.7495990],
+    [44.4668913, -79.7496876],
+    [44.4667369, -79.7497839],
+    [44.4666163, -79.7498544],
+    [44.4664514, -79.7500354],
+    [44.4662433, -79.7502113],
+    [44.4660201, -79.7504101],
+    [44.4658423, -79.7506584],
+    [44.4656131, -79.7508409],
+    [44.4653931, -79.7510518],
+    [44.4651820, -79.7511432],
+    [44.4649141, -79.7512284],
+    [44.4648726, -79.7512879],
+    [44.4646625, -79.7514362],
+    [44.4644287, -79.7515907],
+    [44.4642358, -79.7517080],
+    [44.4641654, -79.7517570],
+    [44.4640276, -79.7519829],
+    [44.4639245, -79.7521312],
+    [44.4639143, -79.7521632],
+    [44.4637992, -79.7524056],
+    [44.4637651, -79.7525053],
+    [44.4637484, -79.7525513],
+    [44.4637263, -79.7526242],
+    [44.4636445, -79.7528416],
+    [44.4635356, -79.7530880],
+    [44.4635198, -79.7531375],
+    [44.4633983, -79.7533820],
+    [44.4632456, -79.7535650],
+    [44.4631586, -79.7538337],
+    [44.4631409, -79.7539056],
+    [44.4630588, -79.7541122],
+    [44.4631076, -79.7542545],
+    [44.4631759, -79.7543336],
+    [44.4631213, -79.7541717],
+    [44.4631632, -79.7542093],
+    [44.4633347, -79.7544255],
+    [44.4634836, -79.7545903],
+    [44.4636528, -79.7547158],
+    [44.4638109, -79.7549141],
+    [44.4639341, -79.7550503],
+    [44.4640540, -79.7551611],
+    [44.4642577, -79.7552999],
+    [44.4643782, -79.7553898],
+    [44.4644885, -79.7554795],
+    [44.4646481, -79.7556138],
+    [44.4647578, -79.7557198],
+    [44.4647999, -79.7557529],
+    [44.4649228, -79.7558300],
+    [44.4650011, -79.7558976],
+    [44.4651712, -79.7560865],
+    [44.4651849, -79.7561052],
+    [44.4653225, -79.7562328],
+    [44.4654165, -79.7562776],
+    [44.4654522, -79.7562386],
+    [44.4656115, -79.7560789],
+    [44.4656979, -79.7560315],
+    [44.4657450, -79.7559838],
+    [44.4658077, -79.7558809],
+    [44.4659021, -79.7556434],
+    [44.4659484, -79.7555369],
+    [44.4659885, -79.7554963],
+    [44.4661479, -79.7554375],
+    [44.4662408, -79.7553178],
+    [44.4663811, -79.7552783],
+    [44.4665471, -79.7550500],
+    [44.4666544, -79.7549178],
+    [44.4667075, -79.7548749],
+    [44.4668498, -79.7546907],
+    [44.4669227, -79.7544545],
+    [44.4670340, -79.7543277],
+    [44.4671258, -79.7540818],
+    [44.4672361, -79.7539483],
+    [44.4674109, -79.7536442],
+    [44.4675116, -79.7534395],
+    [44.4676476, -79.7531993],
+    [44.4677740, -79.7530233],
+    [44.4679459, -79.7528154],
+    [44.4680020, -79.7527752],
+    [44.4680660, -79.7527195],
+    [44.4682688, -79.7527017],
+    [44.4684438, -79.7528005],
+    [44.4685901, -79.7529553],
+    [44.4687445, -79.7531159],
+    [44.4689301, -79.7531967],
+    [44.4690725, -79.7531863],
+    [44.4692640, -79.7531317],
+    [44.4693850, -79.7530959],
+    [44.4694046, -79.7530963],
+    [44.4694402, -79.7530675],
+    [44.4694717, -79.7529048],
+    [44.4695834, -79.7527734],
+    [44.4696813, -79.7526857],
+    [44.4698001, -79.7525598],
+    [44.4699575, -79.7523003],
+    [44.4699793, -79.7519191],
+    [44.4700156, -79.7516800],
+    [44.4700062, -79.7514927],
+    [44.4700534, -79.7512936],
+    [44.4700498, -79.7510259],
+    [44.4700546, -79.7509598],
+    [44.4700608, -79.7507244],
+    [44.4701417, -79.7507953],
+    [44.4703105, -79.7507706],
+    [44.4703376, -79.7507104],
+    [44.4704422, -79.7504733],
+    [44.4705653, -79.7501043],
+    [44.4705798, -79.7500797],
+    [44.4706236, -79.7499712],
+    [44.4707321, -79.7497495],
+    [44.4708738, -79.7494533],
+    [44.4709660, -79.7492680],
+    [44.4709764, -79.7492230],
+    [44.4711134, -79.7489442],
+    [44.4712096, -79.7486917],
+    [44.4713086, -79.7484562],
+    [44.4713315, -79.7484011],
+    [44.4714138, -79.7481705],
+    [44.4715342, -79.7479383],
+    [44.4716201, -79.7477543],
+    [44.4717027, -79.7475067],
+    [44.4717232, -79.7474710],
+    [44.4718215, -79.7472347],
+    [44.4718777, -79.7471344],
+    [44.4719388, -79.7470079],
+    [44.4720435, -79.7466986],
+    [44.4720895, -79.7465624],
+    [44.4722064, -79.7463109],
+    [44.4722968, -79.7460270],
+    [44.4723575, -79.7459291],
+    [44.4723936, -79.7458951],
+    [44.4725231, -79.7457508],
+    [44.4725112, -79.7457771],
+];
+
+
+var polyline = L.polyline(latlngs, {color: 'mediumpurple', weight: 5}).addTo(map);
+polyline.bindPopup("<b>Barrie</b><br>Bear's Creek Side Trail");
+
+
+                // Barrie Side Trail - George Johnston Road
+
+var latlngs = [
+    [44.3960170, -79.8228200],
+    [44.3958830, -79.8225340],
+    [44.3957320, -79.8222870],
+    [44.3954540, -79.8218960],
+    [44.3953030, -79.8216970],
+    [44.3951630, -79.8214920],
+    [44.3950130, -79.8211870],
+    [44.3948500, -79.8208320],
+    [44.3945900, -79.8205640],
+    [44.3943770, -79.8204180],
+    [44.3942310, -79.8202620],
+    [44.3941450, -79.8198940],
+    [44.3940240, -79.8196480],
+    [44.3940010, -79.8193830],
+    [44.3937870, -79.8192130],
+    [44.3936290, -79.8191290],
+    [44.3934410, -79.8189570],
+    [44.3931880, -79.8187590],
+    [44.3930170, -79.8186380],
+    [44.3928340, -79.8185200],
+    [44.3926180, -79.8183470],
+    [44.3924060, -79.8181430],
+    [44.3921640, -79.8179570],
+    [44.3919300, -79.8177470],
+    [44.3917090, -79.8175480],
+    [44.3914330, -79.8173690],
+    [44.3912570, -79.8171860],
+    [44.3910530, -79.8170090],
+    [44.3907990, -79.8168550],
+    [44.3905870, -79.8166280],
+    [44.3904190, -79.8165250],
+    [44.3902320, -79.8163770],
+    [44.3900420, -79.8162190],
+    [44.3898060, -79.8160350],
+    [44.3895820, -79.8158060],
+    [44.3893190, -79.8155160],
+    [44.3890410, -79.8152750],
+    [44.3888750, -79.8151150],
+    [44.3890650, -79.8147290],
+    [44.3892010, -79.8143860],
+    [44.3893570, -79.8140100],
+    [44.3894990, -79.8136470],
+    [44.3896260, -79.8133960],
+    [44.3897610, -79.8130700],
+    [44.3899890, -79.8128530],
+    [44.3900210, -79.8126380],
+    [44.3900920, -79.8123490],
+    [44.3901720, -79.8121770],
+    [44.3903030, -79.8119450],
+    [44.3904860, -79.8115160],
+    [44.3906720, -79.8113050],
+    [44.3906800, -79.8110860],
+    [44.3907330, -79.8108640],
+    [44.3908580, -79.8106500],
+    [44.3909760, -79.8102850],
+    [44.3910900, -79.8099950],
+    [44.3911950, -79.8097650],
+    [44.3913210, -79.8095720],
+    [44.3914780, -79.8092830],
+    [44.3916440, -79.8089680],
+    [44.3917440, -79.8087400],
+    [44.3918410, -79.8084780],
+    [44.3919480, -79.8082000],
+    [44.3921680, -79.8079550],
+    [44.3922730, -79.8077030],
+    [44.3924180, -79.8074500],
+    [44.3925510, -79.8070640],
+    [44.3927140, -79.8067610],
+    [44.3928690, -79.8065240],
+    [44.3929810, -79.8062350],
+    [44.3930970, -79.8060150],
+    [44.3932010, -79.8058170],
+    [44.3932910, -79.8055840],
+    [44.3934320, -79.8052930],
+    [44.3935120, -79.8050830],
+    [44.3936170, -79.8048520],
+    [44.3937720, -79.8045490],
+    [44.3938630, -79.8042750],
+    [44.3939200, -79.8040570],
+    [44.3941160, -79.8037660],
+    [44.3941970, -79.8035790],
+    [44.3943010, -79.8032670],
+    [44.3944350, -79.8030420],
+    [44.3945340, -79.8027660],
+    [44.3946500, -79.8025120],
+    [44.3947470, -79.8022590],
+    [44.3948670, -79.8019050],
+    [44.3949980, -79.8016800],
+    [44.3951170, -79.8014480],
+    [44.3953100, -79.8010090],
+    [44.3953670, -79.8007850],
+];
+
+var polyline = L.polyline(latlngs, {color: 'mediumvioletred', weight: 5}).addTo(map);
+polyline.bindPopup("<b>Barrie</b><br>George Johnston Road Side Trail");
+
+
 
 
 // MAD RIVER MAIN TRAIL
@@ -4682,7 +5327,9 @@ var latlngs = [
 ];
 
 var polyline = L.polyline(latlngs, {color: 'mediumseagreen', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Mad River Main Trail</b><br>");
+// polyline.bindPopup("<b>Mad River Main Trail</b><br>"); (Original)
+polyline.bindPopup('<a href="https://www.facebook.com/mrht18" target="_blank">www.facebook.com/mrht18</a><p><b>Mad River Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+
 
 var circledotMadRiverStart = L.circle([44.3402840, -79.8428310], { 
     color: 'mediumseagreen',
@@ -5020,7 +5667,10 @@ var latlngs = [
 ];
 
 var polyline = L.polyline(latlngs, {color: 'mediumvioletred', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Wasaga Beach Main Trail</b><br>");
+// polyline.bindPopup("<b>Wasaga Beach Main Trail</b><br>"); (Orilinal)
+// polyline.bindPopup('<a href="https://www.instagram.com/hiking_the_ganaraska_ontario" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario</a><p><b>Wasaga Beach Main Trail</b>');
+// polyline.bindPopup('<a href="https://www.facebook.com/mrht18" target="_blank">www.facebook.com/mrht18</a><p><b>Mad River Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+polyline.bindPopup('<a href="https://www.facebook.com/groups/ganaraskahikingtrailgroup" target="_blank">www.facebook.com/groups/ganaraskahikingtrailgroup</a><p><b>Wasaga Beach Main Trail</b>');
 
 
 // TINY MAIN TRAIL
@@ -5114,7 +5764,9 @@ var latlngs = [
 ];
 
 var polyline = L.polyline(latlngs, {color: 'teal', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Tiny Main Trail</b><br>");
+// polyline.bindPopup("<b>Tiny Main Trail</b><br>"); // (Original)
+polyline.bindPopup('<a href="https://www.facebook.com/groups/ganaraskahikingtrailgroup" target="_blank">www.facebook.com/groups/ganaraskahikingtrailgroup</a><p><b>Tiny Main Trail</b>');
+
 
 // Put this here so dot covers Tiny trail end. Thumbs up! :)
 var circledotWasagaBeachStart = L.circle([44.5653190, -79.9945310], { 
@@ -5124,6 +5776,103 @@ var circledotWasagaBeachStart = L.circle([44.5653190, -79.9945310], {
     weight: 10,
     radius: 20,
 }).addTo(map);
+
+
+            // Tiny Side Trail - Tiny East Side Trail
+
+var latlngs = [
+    [44.6125700, -79.9239800],
+    [44.6118400, -79.9232600],
+    [44.6114300, -79.9231300],
+    [44.6107600, -79.9224000],
+    [44.6099400, -79.9218200],
+    [44.6092900, -79.9211500],
+    [44.6089100, -79.9209600],
+    [44.6089300, -79.9205900],
+    [44.6090200, -79.9207600],
+    [44.6089300, -79.9209500],
+    [44.6085800, -79.9209800],
+    [44.6067100, -79.9218700],
+    [44.6060400, -79.9221200],
+    [44.6036300, -79.9233900],
+    [44.6026000, -79.9238600],
+    [44.6022800, -79.9240400],
+    [44.6022200, -79.9241600],
+    [44.6002400, -79.9249700],
+    [44.5987400, -79.9261200],
+    [44.5979800, -79.9265100],
+    [44.5963000, -79.9276800],
+    [44.5953300, -79.9284600],
+    [44.5951400, -79.9287500],
+];
+
+            var polyline = L.polyline(latlngs, {color: 'mediumseagreen', weight: 5}).addTo(map);
+            polyline.bindPopup("<b>Tiny</b><br>Tiny East Side Trail");
+
+
+            // Tiny Side Trail - Tiny Side Trail West
+
+var latlngs = [
+    [44.5932500, -79.9346000],
+    [44.5933800, -79.9347300],
+    [44.5935600, -79.9347100],
+    [44.5944900, -79.9355600],
+    [44.5943600, -79.9354700],
+    [44.5939900, -79.9362600],
+    [44.5938800, -79.9363500],
+    [44.5937500, -79.9363300],
+    [44.5935100, -79.9360700],
+    [44.5931100, -79.9361000],
+    [44.5929500, -79.9362200],
+    [44.5928000, -79.9363700],
+    [44.5926800, -79.9366800],
+    [44.5926600, -79.9369600],
+    [44.5925100, -79.9371300],
+    [44.5924500, -79.9371100],
+    [44.5926000, -79.9373900],
+    [44.5928300, -79.9373600],
+    [44.5929900, -79.9372000],
+    [44.5932700, -79.9371200],
+    [44.5933800, -79.9371300],
+    [44.5935300, -79.9373000],
+    [44.5936300, -79.9375200],
+    [44.5936200, -79.9378900],
+    [44.5939900, -79.9383800],
+    [44.5939100, -79.9389700],
+    [44.5943700, -79.9395100],
+    [44.5945300, -79.9399400],
+    [44.5945700, -79.9407000],
+    [44.5948700, -79.9413800],
+    [44.5949700, -79.9414700],
+    [44.5947200, -79.9411600],
+    [44.5943800, -79.9409900],
+    [44.5938400, -79.9404700],
+    [44.5934300, -79.9401900],
+    [44.5934300, -79.9402700],
+    [44.5931900, -79.9401800],
+    [44.5930000, -79.9399900],
+    [44.5926400, -79.9398300],
+    [44.5923400, -79.9394000],
+    [44.5921600, -79.9393400],
+    [44.5921200, -79.9391800],
+    [44.5922400, -79.9392100],
+    [44.5916100, -79.9387900],
+    [44.5916300, -79.9382800],
+    [44.5920400, -79.9375700],
+    [44.5919400, -79.9372100],
+    [44.5921000, -79.9365300],
+    [44.5917600, -79.9360700],
+    [44.5917800, -79.9355400],
+    [44.5915700, -79.9346300],
+    [44.5915900, -79.9344600],
+    [44.5917600, -79.9342200],
+    [44.5919400, -79.9341400],
+    [44.5921400, -79.9339300],
+    [44.5932200, -79.9346700],
+];
+
+    var polyline = L.polyline(latlngs, {color: 'limegreen', weight: 5}).addTo(map);
+    polyline.bindPopup("<b>Tiny</b><br>Tiny West Loop Side Trail");
 
 
 
@@ -5451,7 +6200,69 @@ var latlngs = [
 ];
 
 var polyline = L.polyline(latlngs, {color: 'darkorange', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Midland Main Trail</b><br>");
+// polyline.bindPopup("<b>Midland Main Trail</b><br>"); // (Original)
+    polyline.bindPopup('<a href="https://www.facebook.com/GHTAMidland" target="_blank">www.facebook.com/GHTAMidland</a><p><b>Midland Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
+
+
+
+            // Midland - Charlebois East Side Trail
+
+            var latlngs = [
+    [44.7486500, -79.9481100],
+    [44.7482000, -79.9483700],
+    [44.7473800, -79.9485700],
+    [44.7469200, -79.9486100],
+    [44.7466100, -79.9488400],
+    [44.7465600, -79.9513300],
+    [44.7461800, -79.9520700],
+    [44.7457100, -79.9525100],
+    [44.7446700, -79.9544200],
+    [44.7447700, -79.9543800],
+    [44.7446900, -79.9543200],
+    [44.7446500, -79.9545100],
+    [44.7445300, -79.9546000],
+    [44.7438400, -79.9558000],
+    [44.7437100, -79.9560900],
+    [44.7437800, -79.9562100],
+    [44.7437900, -79.9561600],
+];
+
+
+var polyline = L.polyline(latlngs, {color: 'salmon', weight: 6}).addTo(map);
+polyline.bindPopup("<b>Midland</b><br>Charlebois East Side Trail");
+
+
+
+            // Midland - Charlebois West Side Trail
+
+var latlngs = [
+    [44.7436100, -79.9565500],
+    [44.7440500, -79.9555900],
+    [44.7445200, -79.9547200],
+    [44.7450400, -79.9539000],
+    [44.7451200, -79.9537800],
+    [44.7454500, -79.9531600],
+    [44.7455400, -79.9533300],
+    [44.7458600, -79.9536500],
+    [44.7460700, -79.9538900],
+    [44.7465300, -79.9542800],
+    [44.7468200, -79.9546200],
+    [44.7469800, -79.9549000],
+    [44.7471300, -79.9554600],
+    [44.7472900, -79.9563800],
+    [44.7475300, -79.9565800],
+    [44.7478100, -79.9567900],
+    [44.7480400, -79.9570000],
+    [44.7482200, -79.9574200],
+    [44.7484900, -79.9579500],
+    [44.7487300, -79.9580600],
+    [44.7492400, -79.9578400],
+    [44.7495500, -79.9578400],
+    [44.7497600, -79.9579400],
+];  
+
+var polyline = L.polyline(latlngs, {color: 'chocolate', weight: 5}).addTo(map);
+polyline.bindPopup("<b>Midland</b><br>Charlebois West Side Trail");
 
 
 // Placed here so dot covers both Tiny & Midland trails. :)
@@ -5580,10 +6391,12 @@ var latlngs = [
 ];
 
 var polyline = L.polyline(latlngs, {color: 'deepskyblue', weight: 6}).addTo(map);
-polyline.bindPopup("<b>Oro-Medonte Main Trail</b><br>");
+// polyline.bindPopup("<b>Oro-Medonte Main Trail</b><br>"); // (Original)
+    polyline.bindPopup('<a href="https://www.facebook.com/GHTAOroMedonte" target="_blank">www.facebook.com/GHTAOroMedonte</a><p><b>Oro-Medonte Main Trail</b><p><a href="https://www.instagram.com/hiking_the_ganaraska_ontario/" target="_blank">www.instagram.com/hiking_the_ganaraska_ontario');
 
 
-// START DOTS IN CLUB COLOURS - ALLOWS FOR COORDINATE POPUPS!!
+
+// START-DOTS IN CLUB COLOURS - ALLOWS FOR COORDINATE POPUPS!!
 
 // Dot put here to cover both trails, but most are up top somehwhere :)
 var circledotOroMedonteStart = L.circle([44.5715436,-79.6745914], { 
@@ -5609,6 +6422,7 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
     // SIMCOE COUNTY FOREST TRACTS... ONE AT A TIME... GOOD GRIEF & LOL!! .)
     // I start capturing coordinates at the NW corner and work clockwise. 
 
+            // BARRIE SIMCOE COUNTY FORESTS
 
 // Define polygon coordinates for Simcoe County Forest Tracts
     var Breedoncoords = [
@@ -5622,7 +6436,6 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
       [44.5468333,-79.5598415],
     ];
 
-    
     
     // Create polygon with custom colors
     var polygon = L.polygon(Breedoncoords, {
@@ -5838,6 +6651,103 @@ var Amoscoords = [
     polygon.bindPopup("Simcoe County Forest - <b>Amos Tract</b><p>");
 
 
+            // MIDLAND SIMCOE COUNTY FORESTS
+
+    var ThompsonWestcoords = [
+      [44.7516099,-79.9633007],
+      [44.7559117,-79.9537078],
+      [44.7527381,-79.9509373], //SE Corner
+      [44.7485354,-79.9604642],
+      
+    ];
+    
+    var polygon = L.polygon(ThompsonWestcoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Thompson West Tract</b><p>");
+
+
+var ThompsonEastcoords = [
+      [44.7556044,-79.9531287],
+      [44.7581205,-79.9475487],
+      [44.75879224,-79.94812951],
+      [44.7611733,-79.9426290],
+      [44.7574506,-79.9393831],
+      [44.7525395,-79.9504602],
+    ];
+    
+    var polygon = L.polygon(ThompsonEastcoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Thompson East Tract</b><p>");
+
+   var Charleboiscoords = [
+      [44.7485269,-79.9604679],
+      [44.7527344,-79.9509383],
+      [44.7464693,-79.9454615],
+      [44.7420662,-79.9549763],
+    ];
+    
+    var polygon = L.polygon(Charleboiscoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Charlebois Tract</b><p>"); 
+
+
+ var MartinsValleycoords = [
+      [44.7525395,-79.9504602],
+      [44.7574637,-79.9393494],
+      [44.7527454,-79.9352862],
+      [44.7530936,-79.9344703],
+      [44.7515689,-79.9331234], // Start of thin line
+      [44.7527613,-79.9304536],
+      [44.7528318,-79.9304926],
+      [44.75330044,-79.92935483],
+      [44.75370792,-79.92928521],
+      [44.75423939,-79.92804411],
+      [44.7549610,-79.9279154],    // NW Corner of little "Knob" LOL!! :)
+      [44.75496732,-79.92748908],
+      [44.7543954,-79.9275835],
+      [44.7536868,-79.9292408],
+      [44.7532786,-79.9293039],
+      [44.7528157,-79.9304352],
+      [44.7527498,-79.9303999],
+      [44.7510540,-79.9341935],
+      [44.7495047,-79.9328124],
+      [44.7446957,-79.9435866],
+    ];
+    
+    var polygon = L.polygon(MartinsValleycoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Martin's Valley Tract</b><p>"); 
+
+
+// Dot put here to cover both trails, but most are up top somehwhere :)
+var circledotTinyStart = L.circle([44.7499988,-79.9602955], { 
+    color: 'teal',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+
 
 
         // DISTANCE MARKERS:
@@ -5873,6 +6783,125 @@ OrilliaDist2.bindPopup("<b>KM 11.9</b><br>Junction at Kirkfield Rd").addTo(map);
 }).addTo(map);
 OrilliaDist3.bindPopup("<b>KM 14.9</b><br>Junction at CON 13").addTo(map);
 
+var OrilliaDist4 = L.circle([44.657089, -79.204378], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist4.bindPopup("<b>KM 16.4</b><br>Trail heads SW").addTo(map);
+
+var OrilliaDist5 = L.circle([44.628787, -79.276789], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist5.bindPopup("<b>KM 23.5</b><br>").addTo(map);
+
+var OrilliaDist6 = L.circle([44.61684, -79.271734], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist6.bindPopup("<b>KM 24.8</b><br>").addTo(map);
+
+var OrilliaDist7 = L.circle([44.599467, -79.351358], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist7.bindPopup("<b>KM 31.5</b><br>").addTo(map);
+
+var OrilliaDist8 = L.circle([44.606651, -79.376929], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist8.bindPopup("<b>KM 33.9</b><br>").addTo(map);
+
+var OrilliaDist9 = L.circle([44.609221, -79.41028], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 5,
+}).addTo(map);
+OrilliaDist9.bindPopup("<b>KM 37.5</b><br>").addTo(map);
+
+var OrilliaDist10 = L.circle([44.592501, -79.421263], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 5,
+}).addTo(map);
+OrilliaDist10.bindPopup("<b>KM 40.0</b><br>").addTo(map);
+
+var OrilliaDist11 = L.circle([44.571485, -79.428257], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 5,
+}).addTo(map);
+OrilliaDist11.bindPopup("<b>KM 42.5</b><br>").addTo(map);
+
+var OrilliaDist12 = L.circle([44.573652, -79.470549], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist12.bindPopup("<b>KM 49.4</b><br>").addTo(map);
+
+var OrilliaDist13 = L.circle([44.560913, -79.500493], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist13.bindPopup("<b>KM 52.2</b><br>").addTo(map);
+
+var OrilliaDist14 = L.circle([44.540881, -79.543634], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist14.bindPopup("<b>KM 57.8</b><br>").addTo(map);
+
+var OrilliaDist15 = L.circle([44.539346, -79.575240], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist15.bindPopup("<b>KM 62.4</b><br>").addTo(map);
+
+var OrilliaDist16 = L.circle([44.552925, -79.609037], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+OrilliaDist16.bindPopup("<b>KM 67.5</b><br>").addTo(map);
+
+
+// BARRIE 
 
  var BarrieDist1 = L.circle([44.5553241,-79.6189653], { 
     color: 'black',
@@ -5912,6 +6941,12 @@ BarrieDist3.bindPopup("<b>KM 7.7</b><br>Junction at Sign Post 11").addTo(map);
     radius: 15,
 }).addTo(map);
 BarrieDist4.bindPopup("<b>KM 16.0</b><br>Horseshoe Valley Rd & Penetanguishene Rd").addTo(map);
+
+
+
+
+
+
 
 
 
