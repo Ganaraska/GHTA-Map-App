@@ -401,6 +401,23 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
     // Hazard Symbols
 
+    var hazardWilderness1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        L.marker([44.825848, -78.812276],{icon:hazardWilderness1icon}).addTo(map).bindPopup("Beaver Dam");
+
+    var hazardWilderness2icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        L.marker([44.85908, -78.832701],{icon:hazardWilderness2icon}).addTo(map).bindPopup("Very difficult water crossing");
+
+    var hazardWilderness3icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        L.marker([44.861116, -78.908734],{icon:hazardWilderness3icon}).addTo(map).bindPopup("Very difficult water crossing");
+
+    var hazardWilderness4icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        L.marker([44.847342, -79.026429],{icon:hazardWilderness4icon}).addTo(map).bindPopup("Very difficult water crossing");
+
+    var hazardWilderness5icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        L.marker([44.829935, -79.058466],{icon:hazardWilderness5icon}).addTo(map).bindPopup("Difficult water crossing");      
+
+
+
     var hazardOrillia1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
         L.marker([44.574112, -79.443803],{icon:hazardOrillia1icon}).addTo(map).bindPopup("Dangerous X-ing at Hwy 11 & Memorial Av");
 
@@ -417,15 +434,24 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         L.marker([44.583382, -79.68281],{icon:hazardOroMedonte1icon}).addTo(map).bindPopup("DANGEROUS RAILWAY X-ING");
 
     var hazardMidland1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
-        L.marker([44.729669, -79.802372],{icon:hazardMidland1icon}).addTo(map).bindPopup("DANGEROUS X-ING OVER HWY 12 <br>(a.k.a. Isobel's Crossing .)");   
-  
+        L.marker([44.729669, -79.802372],{icon:hazardMidland1icon}).addTo(map).bindPopup("DANGEROUS X-ING OVER HWY 12 <br>(a.k.a. Isobel's Crossing .)");  
+
+   
         
         // Parking WILDERNESS
 
     var parkingWilderness1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
         L.marker([44.806185,-78.813349],{icon:parkingWilderness1icon}).addTo(map).bindPopup("Parking availale along Country Rd. This marks the end of the <b>Kawartha</b> trail and the beginning of the <b>Wilderness</b> trail.");
 
-        
+    var parkingWilderness2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.859436, -78.815888],{icon:parkingWilderness2icon}).addTo(map).bindPopup("There's a parking lot by Devil's Lake Road & Deep Bay Road.");
+
+    var parkingWilderness3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.83309, -79.06096],{icon:parkingWilderness3icon}).addTo(map).bindPopup("Parking available along Black River Rd by Victoria Bridge.");
+
+
+
+
 
     
         // Parking ORILLIA
