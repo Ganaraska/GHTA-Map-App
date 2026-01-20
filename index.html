@@ -49,7 +49,6 @@
 </body>
 
 
-
 <script>
 
 var map = L.map('map');
@@ -162,7 +161,6 @@ updateWhenIdle: false // Update the scale bar on move
                         alert("Unable to get current location");
                     }
         }
-
 
 
 
@@ -438,6 +436,28 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
    
         
+       // Parking Pine Ridge
+
+    var parkingPineRidge1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([43.9490694,-78.2943787],{icon:parkingPineRidge1icon}).addTo(map).bindPopup("Parking available west side of Town Hall.");
+       
+    var parkingPineRidge2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([43.968654, -78.295704],{icon:parkingPineRidge2icon}).addTo(map).bindPopup("Plenty of parking at <b>Port Hope Conservation Area</b> (TEMPORARILY CLOSED).");  
+       
+    var parkingPineRidge3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.129854, -78.530232],{icon:parkingPineRidge3icon}).addTo(map).bindPopup("Parking and <b>lunch spot</b> at Old Marsh Anglican Church."); 
+        
+
+        // Parking KAWARTHA
+
+    var parkingKawartha1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.291519,-78.632367],{icon:parkingKawartha1icon}).addTo(map).bindPopup("<b>Roadside parking</b> is available on Crosswind Rd. Most other road crossings along the trail are usable for parking.");    
+
+
+  
+  
+  
+  
         // Parking WILDERNESS
 
     var parkingWilderness1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
@@ -565,13 +585,39 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
     var parkingMidland10icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
          L.marker([44.74479, -79.94370],{icon:parkingMidland10icon}).addTo(map).bindPopup("Parking on Wilson Road");
 
+
+
+
          // POI - Points-Of-Interest
+
+    var pointofinterestPineRide1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([43.976988,-78.332168],{icon:pointofinterestPineRide1icon}).addTo(map).bindPopup("<b>Northumberland Hills Drumlins</b><br>Drumlins are elongated, oval-shaped mounds of glacial till deposited and shaped beneath advancing ice sheets during the last ice age.");
+
+    var pointofinterestPineRide2icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([43.9514307,-78.2936554],{icon:pointofinterestPineRide2icon}).addTo(map).bindPopup("<b>Walton Street</b><br>Port Hope’s main street is an architectural gem and is designated as a Heritage Conservation Distict.");
+
+    var pointofinterestPineRide3icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([43.976619, -78.291559],{icon:pointofinterestPineRide3icon}).addTo(map).bindPopup("<b>Port Hope Conservation Area</b><br>(TEMPORARILY CLOSED)"); 
+
+    var pointofinterestPineRide4icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([43.991302, -78.334343],{icon:pointofinterestPineRide4icon}).addTo(map).bindPopup("<b>Sylvan Glen Conservation Area</b><br>");
+
+    var pointofinterestPineRide5icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.069185, -78.395176],{icon:pointofinterestPineRide5icon}).addTo(map).bindPopup("<b>Oak Ridge Moraine</b><br>A collection of higher sandy hills deposited by ice sheets during the last ice age. It is a local high area: on the south side the watercourses flow to Lake Ontario; on he north side the streams flow to the Kawartha Lakes.");
+         
+    var pointofinterestPineRide6icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.09424, -78.481363],{icon:pointofinterestPineRide6icon}).addTo(map).bindPopup("<b>Ganaraska Forest</b><br>");
+   
+    var pointofinterestPineRide7icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.194132, -78.5584],{icon:pointofinterestPineRide7icon}).addTo(map).bindPopup("<b>Town of Bethany</b><br>Great view of Bethany in the valley about 1 kilometer to the west and is also a good lunch spot.");     
+
+    
+
 
     var pointofinterestKawartha1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.357004, -78.735594],{icon:pointofinterestKawartha1icon}).addTo(map).bindPopup("Lock 33 <b>Trent Severn Waterway</b> has benches, picnic tables, & washrooms");
 
-    var pointofinterestPineRide1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
-         L.marker([43.976988,-78.332168],{icon:pointofinterestPineRide1icon}).addTo(map).bindPopup("<b>Northumberland Hills Drumlins</b><br>Drumlins are elongated, oval-shaped mounds of glacial till deposited and shaped beneath advancing ice sheets during the last ice age.");
+   
 
     var pointofiterestBarrie1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.547926, -79.675877],{icon:pointofiterestBarrie1icon}).addTo(map).bindPopup("Horseshoe Valley Ski Resort");
@@ -1018,7 +1064,7 @@ var latlngs = [
 ];
 
     var polyline = L.polyline(latlngs, {color: 'crimson', weight: 5}).addTo(map);
-    //polyline.bindPopup("<b>Pine Ridge</b><br>Ganaraska Forest Bypass Side Trail"); (Original)
+    polyline.bindPopup("<b>Pine Ridge</b><br>Ganaraska Forest Winter Bypass Side Trail");
 
 
 
@@ -6380,7 +6426,59 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
     // SIMCOE COUNTY FOREST TRACTS... ONE AT A TIME... GOOD GRIEF & LOL!! .)
     // I start capturing coordinates at the NW corner and work clockwise. 
 
-            // BARRIE SIMCOE COUNTY FORESTS
+
+        // ORILLIA Forest tracts
+
+    var RathburnYoungLakecoords = [
+      [44.7144769,-79.1741160],
+      [44.7152221,-79.1708914],
+      [44.7128534,-79.1698243],
+      [44.7125343,-79.1712032], //1st interior vertex
+      [44.7120992,-79.1710049],
+      [44.7121509,-79.1707247],
+      [44.7110239,-79.1702030],
+      [44.7112740,-79.1690989],
+      [44.7068194,-79.1671015],
+      [44.7060343,-79.1705253],
+    ];
+    var polygon = L.polygon(RathburnYoungLakecoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (near Young Lake)</b><p><b>Activities Allowed:</b> Hiking, Cycling, Horseback Riding, Dog Walking, XC Skiing, Trapping, Snowmobiling, Hunting.<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
+
+   
+        var Rathburn1coords = [
+      [44.6529006,-79.2227105],
+      [44.6593557,-79.1937763],
+      [44.6483309,-79.1894265],
+      [44.6420993,-79.2181869],
+    ];
+    var polygon = L.polygon(Rathburn1coords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (South of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting, Snowmobiling.<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
+
+
+var Rathburn2coords = [
+      [44.6647709,-79.2277437],
+      [44.6727515,-79.1915651],
+      [44.661076, -79.18656],
+      [44.6530978,-79.2227904],
+    ];
+    var polygon = L.polygon(Rathburn2coords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (North of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting, Snowmobiling.<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
+
 
 // Define polygon coordinates for Simcoe County Forest Tracts
     var Breedoncoords = [
@@ -6403,7 +6501,15 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
       fillOpacity: 0.4     // Fill transparency
     }).addTo(map);
 
-    polygon.bindPopup("Simcoe County Forest - <b>Breedon Tract</b>");
+    polygon.bindPopup("Simcoe County Forest - <b>Breedon Tract</b><b>Activities Allowed:</b>Hiking, Cycling, XC Skiing, Dog Walking, Hunting<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV, Snowmobiling");
+
+
+
+
+
+            // BARRIE Forest Tracts
+
+
 
 
     var Strachan1coords = [
@@ -6457,41 +6563,6 @@ var Strachan2coords = [
 
     polygon.bindPopup("Simcoe County Forest - <b>Strachan Tract</b><p>");
 
-
-var Rathburn1coords = [
-      [44.6529006,-79.2227105],
-      [44.6593557,-79.1937763],
-      [44.6483309,-79.1894265],
-      [44.6420993,-79.2181869],
-    ];
-
-    // Create polygon with custom colors
-    var polygon = L.polygon(Rathburn1coords, {
-      color: 'salmon',       // Border color
-      weight: 2,           // Border thickness
-      fillColor: 'salmon', // Fill color
-      fillOpacity: 0.5     // Fill transparency
-    }).addTo(map);
-
-    polygon.bindPopup("Simcoe County Forest - <b>Rathburn Tract</b><p>");
-
-
-var Rathburn2coords = [
-      [44.6647709,-79.2277437],
-      [44.6727515,-79.1915651],
-      [44.661076, -79.18656],
-      [44.6530978,-79.2227904],
-    ];
-
-    // Create polygon with custom colors
-    var polygon = L.polygon(Rathburn2coords, {
-      color: 'salmon',       // Border color
-      weight: 2,           // Border thickness
-      fillColor: 'salmon', // Fill color
-      fillOpacity: 0.5     // Fill transparency
-    }).addTo(map);
-
-    polygon.bindPopup("Simcoe County Forest - <b>Rathburn Tract</b><p>");
 
 
 var Orocoords = [
@@ -6710,7 +6781,199 @@ var circledotTinyStart = L.circle([44.7499988,-79.9602955], {
 
         // DISTANCE MARKERS:
 
-    // ORILLIA
+
+    // PINE RIDGE DM
+
+    var PineRidgeDist1 = L.circle([43.972943, -78.313289], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist1.bindPopup("<b>KM 4.3</b><br>").addTo(map);
+
+
+var PineRidgeDist2 = L.circle([43.979776, -78.32258], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist2.bindPopup("<b>KM 5.7</b><br>").addTo(map);
+
+
+var PineRidgeDist3 = L.circle([43.994663, -78.338981], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist3.bindPopup("<b>KM 8.3</b><br>").addTo(map);
+
+
+var PineRidgeDist4 = L.circle([44.001725, -78.311787], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist4.bindPopup("<b>KM 10.6</b><br>").addTo(map);
+
+
+var PineRidgeDist5 = L.circle([44.016675, -78.329432], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist5.bindPopup("<b>KM 12.8</b><br>").addTo(map);
+
+
+var PineRidgeDist6 = L.circle([44.04876, -78.355909], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist6.bindPopup("<b>KM 15.0</b><br>").addTo(map);
+   
+
+var PineRidgeDist7 = L.circle([44.04877, -78.355955], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist7.bindPopup("<b>KM 17.4</b><br>").addTo(map);
+
+
+var PineRidgeDist8 = L.circle([44.063317, -78.377324], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist8.bindPopup("<b>KM 20.8</b><br>").addTo(map);
+
+
+var PineRidgeDist9 = L.circle([44.075446, -78.408266], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist9.bindPopup("<b>KM 24.8</b><br>").addTo(map);
+
+
+var PineRidgeDist10 = L.circle([44.089465, -78.430228], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist10.bindPopup("<b>KM 28.8</b><br>").addTo(map);
+
+
+var PineRidgeDist11 = L.circle([44.081745, -78.463881], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist11.bindPopup("<b>KM 31.1</b><br>").addTo(map);
+
+
+var PineRidgeDist12 = L.circle([44.106143, -78.519408], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist12.bindPopup("<b>KM 39.7</b><br>").addTo(map);
+
+
+var PineRidgeDist13 = L.circle([44.130532, -78.531015], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist13.bindPopup("<b>KM 42.6</b><br>").addTo(map);
+
+
+var PineRidgeDist14 = L.circle([44.14365, -78.53284], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist14.bindPopup("<b>KM 44.8</b><br>").addTo(map);
+
+
+var PineRidgeDist15 = L.circle([44.182342, -78.553384], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist15.bindPopup("<b>KM 49.7</b><br>").addTo(map);
+
+
+var PineRidgeDist16 = L.circle([44.243047, -78.580379], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist16.bindPopup("<b>KM 56.8</b><br>").addTo(map);
+
+
+var PineRidgeDist17 = L.circle([44.277471, -78.596754], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist17.bindPopup("<b>KM 61.2</b><br>").addTo(map);
+
+
+var PineRidgeDist18 = L.circle([44.27023, -78.610896], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+PineRidgeDist18.bindPopup("<b>KM 62.7</b><br>").addTo(map);
+
+
+
+
+
+
+
+
+
+
+
+// ORILLIA
 
     var OrilliaDist1 = L.circle([44.722814, -79.174214], { 
     color: 'black',
@@ -6984,6 +7247,24 @@ var circledotTinyStart = L.circle([44.7499986, -79.9602998], {
     weight: 10,
     radius: 20,
 }).addTo(map);
+
+
+// geoJSON attempt (the below DOESN'T WORK! ARGH!!!!! :)
+
+var RathburnYoungLake = [{
+    //"type": "Feature",
+    //"properties": {"party": "Democrat"},
+    "geometry": {
+        "type": "Polygon",
+        "color": "#ff7800",
+    "weight": 5,
+    "opacity": 0.65,
+        "coordinates": [[
+            [ -79.171219486713568, 44.712539935239569 ], [ -79.171018753893264, 44.712096199701392 ], [ -79.170963849839097, 44.712108829929704 ], [ -79.170733237289255, 44.712161872389999 ], [ -79.170714599554543, 44.712120679783858 ], [ -79.170549293296148, 44.711755252435644 ], [ -79.170383989081159, 44.711389823960076 ], [ -79.170218686966265, 44.711024392557619 ], [ -79.169120547098316, 44.711276972700354 ], [ -79.167105205672613, 44.706821128339151 ], [ -79.167141809782464, 44.706812708242033 ], [ -79.170527713976909, 44.706033667360572 ], [ -79.173581664288591, 44.713173337974681 ], [ -79.174138509173034, 44.714486028407201 ], [ -79.170910309244377, 44.7152334885672 ], [ -79.169835793491288, 44.712858192990218 ], [ -79.171219486713568, 44.712539935239569 ]
+        ]]
+    }
+        
+}].addto(map);
 
 
 
