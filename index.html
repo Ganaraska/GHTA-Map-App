@@ -25,7 +25,8 @@
         } */
         #map {width: 100%;
                 height: 90%;
-            }
+                
+        }
 
      </style>
 
@@ -121,8 +122,10 @@ updateWhenIdle: false // Update the scale bar on move
 //map.on('locationfound', onLocationFound);
 
 
-                    
-// NAVIGATOR (https://www.youtube.com/watch?v=NyjMmNCtKf4)----------------------------------------------------------------
+
+       
+    
+// NAVIGATOR (https://www.youtube.com/watch?v=NyjMmNCtKf4) WORKS GREAT ON ITS OWN WITHOUT LOCATION BUTTON!! ----------------------------------------
 
 
         navigator.geolocation.watchPosition(success, error);
@@ -136,29 +139,30 @@ updateWhenIdle: false // Update the scale bar on move
             const accuracy = pos.coords.accuracy;
 
                 if (marker) {
-                        map.removeLayer(marker);
-                        map.removeLayer(circle);
+                        //map.removeLayer(marker);
+                        //map.removeLayer(circle);
 
              }
 
             marker = L.marker([lat, lng]).addTo(map);
             circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);  // Original code.
-    //circle = L.circle([lat, lng], { radius: accuracy, color: 'salmon' }).addTo(map);  // Added color to circle and it works! But, I'll keep it blue.
+    
+                                    //circle = L.circle([lat, lng], { radius: accuracy, color: 'salmon' }).addTo(map);  // Added color to circle and it works! But, I'll keep it blue.
 
 
                 if (!zoomed) {
                 zoomed = map.fitBounds(circle.getBounds());
             }
 
-            map.setView([lat, lng]);
+            map.setView([lat, lng]); //To you current lat, lng?? This makes sense, if true.
         }
 
         function error(err) {
 
-                    if (err.code === 1) {
-                        alert("Please allow geolocation access.");
+                 if (err.code === 1) {
+                        //alert("Please allow geolocation access.");
                     } else {
-                        alert("Unable to get current location");
+                        //alert("Unable to get current location");
                     }
         }
 
@@ -565,13 +569,13 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
          L.marker([44.72085, -79.768405],{icon:parkingMidland3icon}).addTo(map).bindPopup("There is limited parking here on the shoulder. <b>Please do NOT block the entrances to the snowmobile trail</b>. (KM 8.4)"); 
 
     var parkingMidland4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         L.marker([44.736689, -79.846243],{icon:parkingMidland4icon}).addTo(map).bindPopup("<b>Sainte Marie Park</b> parking lot north side of HWY 12 on the east side of Wye Valley Rd has plenty of parking (not to be confused with Sainte Marie Among the Hurons parking lot, which is on the SE side of the Wye River & Hwy 12). (KM 13.6)"); 
+         L.marker([44.736689, -79.846243],{icon:parkingMidland4icon}).addTo(map).bindPopup("<b>Sainte Marie Park</b> - Parking lot on north side of HWY 12 on the east side of Wye Valley Rd has plenty of parking (not to be confused with Sainte Marie Among the Hurons parking lot, which is on the SE side of the Wye River & Hwy 12). (KM 13.6)"); 
 
     var parkingMidland5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
          L.marker([44.759095, -79.878471],{icon:parkingMidland5icon}).addTo(map).bindPopup("<b>Small parking lot</b> for approximately 8 cars on the west side of Aberdeen Blvd., but only park on the south side of the office buildings."); 
 
     var parkingMidland6icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         L.marker([44.752071, -79.88803],{icon:parkingMidland6icon}).addTo(map).bindPopup("<b>Downtown Midland & Harbour</b>. Municipal parking lot is currently free, but this may change. Washrooms at the Harbour Master building during the summer months (Victoria Day to Thanksgiving). Restaurants, groceries, coffee shops, etc.");
+         L.marker([44.752071, -79.88803],{icon:parkingMidland6icon}).addTo(map).bindPopup("<b>Downtown Midland & Harbour</b> - Municipal parking lot is currently free, but this may change. Washrooms at the Harbour Master building during the summer months (Victoria Day to Thanksgiving). Restaurants, groceries, coffee shops, etc.");
 
     var parkingMidland7icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
          L.marker([44.755152, -79.898802],{icon:parkingMidland7icon}).addTo(map).bindPopup("Large parking lot at <b>Pete Pettersen Park</b> with its beach, boat launch, playground, baseball field, and views of Georgian Bay, as well as Bayport Marina and the Midland Sailing Club. Lots of free parking!");
@@ -6447,7 +6451,7 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
       fillColor: 'salmon', // Fill color
       fillOpacity: 0.5     // Fill transparency
     }).addTo(map);
-    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (near Young Lake)</b><p><b>Activities Allowed:</b> Hiking, Cycling, Horseback Riding, Dog Walking, XC Skiing, Trapping, Snowmobiling, Hunting.<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
+    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (near Young Lake)</b><p><b>Activities Allowed:</b> Hiking, Cycling, Horseback Riding, Dog Walking, XC Skiing, Trapping, Snowmobiling, Hunting<p><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
 
    
         var Rathburn1coords = [
@@ -6462,7 +6466,7 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
       fillColor: 'salmon', // Fill color
       fillOpacity: 0.5     // Fill transparency
     }).addTo(map);
-    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (South of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting, Snowmobiling.<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
+    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (South of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting<p><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
 
 
 var Rathburn2coords = [
@@ -6477,7 +6481,7 @@ var Rathburn2coords = [
       fillColor: 'salmon', // Fill color
       fillOpacity: 0.5     // Fill transparency
     }).addTo(map);
-    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (North of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting, Snowmobiling.<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
+    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (North of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting<p><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
 
 
 // Define polygon coordinates for Simcoe County Forest Tracts
@@ -6501,7 +6505,7 @@ var Rathburn2coords = [
       fillOpacity: 0.4     // Fill transparency
     }).addTo(map);
 
-    polygon.bindPopup("Simcoe County Forest - <b>Breedon Tract</b><b>Activities Allowed:</b>Hiking, Cycling, XC Skiing, Dog Walking, Hunting<br><b>Forbiden Activities:</b> Target shooting, Camping, ATV, Snowmobiling");
+    polygon.bindPopup("Simcoe County Forest - <b>Breedon Tract</b><p><b>Activities Allowed:</b> Hiking, Cycling, XC Skiing, Dog Walking, Hunting<p><b>Forbiden Activities:</b> Target shooting, Camping, ATV, Snowmobiling");
 
 
 
@@ -6697,7 +6701,7 @@ var Amoscoords = [
       fillOpacity: 0.5     // Fill transparency
     }).addTo(map);
 
-    polygon.bindPopup("Simcoe County Forest - <b>Thompson West Tract</b><p>");
+    polygon.bindPopup("Simcoe County Forest - <b>Thompson West Tract</b><p><b>Activities Allowed:<br></b> Hiking, Cycling, XC Skiing, Dog Walking, Trapping<p><b>Forbiden Activities:</b> Target shooting, Hunting, Camping, ATV, Snowmobiling");
 
 
 var ThompsonEastcoords = [
@@ -6716,7 +6720,8 @@ var ThompsonEastcoords = [
       fillOpacity: 0.5     // Fill transparency
     }).addTo(map);
 
-    polygon.bindPopup("Simcoe County Forest - <b>Thompson East Tract</b><p>");
+        polygon.bindPopup("Simcoe County Forest - <b>Thompson East Tract</b><p><b>Activities Allowed:<br></b> Hiking, Cycling, XC Skiing, Dog Walking, Trapping<p><b>Forbiden Activities:</b> Target shooting, Hunting, Camping, ATV, Snowmobiling");
+
 
    var Charleboiscoords = [
       [44.7485269,-79.9604679],
@@ -6732,7 +6737,7 @@ var ThompsonEastcoords = [
       fillOpacity: 0.5     // Fill transparency
     }).addTo(map);
 
-    polygon.bindPopup("Simcoe County Forest - <b>Charlebois Tract</b><p>"); 
+        polygon.bindPopup("Simcoe County Forest - <b>Charlebois Tract</b><p><b>Activities Allowed:<br></b> Hiking, Cycling, XC Skiing, Dog Walking, Trapping<p><b>Forbiden Activities:</b> Target shooting, Hunting, Camping, ATV, Snowmobiling");
 
 
  var MartinsValleycoords = [
@@ -6765,7 +6770,7 @@ var ThompsonEastcoords = [
       fillOpacity: 0.5     // Fill transparency
     }).addTo(map);
 
-    polygon.bindPopup("Simcoe County Forest - <b>Martin's Valley Tract</b><p>"); 
+        polygon.bindPopup("Simcoe County Forest - <b>Martin's Valley Tract</b><p><b>Activities Allowed:<br></b> Hiking, Cycling, XC Skiing, Dog Walking, Trapping<p><b>Forbiden Activities:</b> Target shooting, Hunting, Camping, ATV, Snowmobiling");
 
 
 // Dot put here to cover both trails, but most are up top somehwhere :)
@@ -7272,4 +7277,3 @@ var RathburnYoungLake = [{
 
 </script>
 </html>
-
