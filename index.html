@@ -455,10 +455,13 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         // Parking KAWARTHA
 
     var parkingKawartha1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-        L.marker([44.291519,-78.632367],{icon:parkingKawartha1icon}).addTo(map).bindPopup("<b>Roadside parking</b> is available on Crosswind Rd. Most other road crossings along the trail are usable for parking.");    
+        L.marker([44.291906, -78.630895],{icon:parkingKawartha1icon}).addTo(map).bindPopup("<b>Roadside parking</b> is available on Crosswind Rd. Most other road crossings along the trail are usable for parking.");    
 
-
+    var parkingKawartha2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.312157, -78.678842],{icon:parkingKawartha2icon}).addTo(map).bindPopup("Access <b>parking</b> by turning onto River Rd from Hwy 7. Go west a short distance then turn right (north) onto Hillhead Road Park on the roadside near the gate. Trail access is about 2 metres past the gate.");
   
+    var parkingKawartha3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.36966, -78.74395],{icon:parkingKawartha3icon}).addTo(map).bindPopup("Street parking available on William Street or Orchard Park Lane.");
   
   
   
@@ -621,7 +624,10 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
     var pointofinterestKawartha1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.357004, -78.735594],{icon:pointofinterestKawartha1icon}).addTo(map).bindPopup("Lock 33 <b>Trent Severn Waterway</b> has benches, picnic tables, & washrooms");
 
-   
+    var pointofinterestKawartha2icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.369844, -78.743467],{icon:pointofinterestKawartha2icon}).addTo(map).bindPopup("Alongside the trail is Victoria Junction with exhibits displaying <b>rail history</b> and <b>ecological</b> info about the area. There is also a <b>convenience store</b> nearby.");
+         
+
 
     var pointofiterestBarrie1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.547926, -79.675877],{icon:pointofiterestBarrie1icon}).addTo(map).bindPopup("Horseshoe Valley Ski Resort");
@@ -4076,25 +4082,37 @@ var circledotWildernessStart = L.circle([44.756539, -79.15518], {
         // ORILLIA SIDE TRAIL
 
                 var latlngs = [
-            [44.5581847, -79.5199413],
-            [44.5576960, -79.5211830],
-            [44.5577230, -79.5214950],
-            [44.5568180, -79.5235450],
-            [44.5567240, -79.5241790],
-            [44.5566090, -79.5244060],
-            [44.5560300, -79.5247800],
-            [44.5560610, -79.5255860],
-            [44.5559680, -79.5259500],
-            [44.5559920, -79.5261280],
-            [44.5563680, -79.5264100],
-            [44.5564540, -79.5266140],
-            [44.5566040, -79.5274580],
-            [44.5567620, -79.5276870],
-            [44.5565020, -79.5280930],
-            [44.5567150, -79.5287210],
-            [44.5568780, -79.5289630],
-            [44.5564100, -79.5292390],
-            [44.5557289, -79.5300057],
+            
+            // Improved OST
+            [44.558263, -79.519998],
+            [44.556903, -79.523586],
+            [44.556562, -79.524656],
+            [44.556074, -79.525343],
+            [44.556074, -79.525954],
+            [44.556684, -79.528859],
+            [44.556065, -79.529779],
+            [44.55565, -79.530053],
+            
+                // Original OST
+            //[44.5581847, -79.5199413],
+            //[44.5576960, -79.5211830],
+            //[44.5577230, -79.5214950],
+            //[44.5568180, -79.5235450],
+            //[44.5567240, -79.5241790],
+            //[44.5566090, -79.5244060],
+            //[44.5560300, -79.5247800],
+            //[44.5560610, -79.5255860],
+            //[44.5559680, -79.5259500],
+            //[44.5559920, -79.5261280],
+            //[44.5563680, -79.5264100],
+            //[44.5564540, -79.5266140],
+            //[44.5566040, -79.5274580],
+            //[44.5567620, -79.5276870],
+            //[44.5565020, -79.5280930],
+            //[44.5567150, -79.5287210],
+            //[44.5568780, -79.5289630],
+            //[44.5564100, -79.5292390],
+            //[44.5557289, -79.5300057],
         ];
 
             var polyline = L.polyline(latlngs, {color: 'chocolate', weight: 4}).addTo(map);
