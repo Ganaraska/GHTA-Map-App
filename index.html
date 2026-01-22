@@ -87,17 +87,6 @@ var CycleOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z
 	//attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
-var baseMaps = {
-    "OpenStreetMap (Standard)": osm,
-    "OpenStreetMap (Alt)": osm_HOT,
-    "OSM Cycle/Hiking (TCT & Contours)": CycleOSM,
-    "OpenTopoMap (Contours)": otm,
-};
-
-L.control.layers(baseMaps).addTo(map);
-
-
-
 
 // Add a scale bar to the map-------------------------------------------------------------------------------------
 L.control.scale({
@@ -107,6 +96,14 @@ metric: true, // Show metric units (m/km)
 imperial: true, // Show imperial units (ft/mi)
 updateWhenIdle: false // Update the scale bar on move
 }).addTo(map);
+
+
+
+
+
+
+
+
 
 
 // USING LEAFLET "YOU ARE WITHIN...METRES OF THIS POINT" & NAVIGATOR FOR A MOVING GEOLOCATION MARKER.
@@ -281,6 +278,10 @@ map.on('click', onMapClick);
 //     Note the new circle variable like 'circleOrilliaStart'
 //     and NOT just circle which gets confusing with the geocoding circle variable above).
 
+   
+
+
+
 
 var circlePineRidgeStart = L.circle([43.949146, -78.292529], { 
     color: 'tomato',
@@ -401,7 +402,21 @@ var circleOroMedonteStart = L.circle([44.5715436,-79.6745914], {
 circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2024/10/Oro-Medonte-Trail-Guide-Description-20241018.pdf" target="_blank"><h4>Oro-Medonte Trail Guide</h4></a><p><b><h3>Oro-Medonte Start</h3></b><p>44.571562, -79.674606<p>Gentle undulating terrain, suitable for beginners, 18.5 km in length. The south end of the Oro Medonte trail starts in the Copeland Forest, north of Barrie, where it branches off the Barrie trail going north to Vasey Road.');
 
 
-    // Hazard Symbols
+    // THIS WORKS TOO, BUT IT'S NOT LIKE THE OTHER SVGs - IT ROAMS AROUND TOO MUCH. HMM...
+    //var GHTAicon = L.icon({iconUrl: 'GHTA-Logo-2021.svg', iconSize: [200, 175]});
+        //L.marker([44.658807, -80.014962],{icon:GHTAicon}).addTo(map)//.bindPopup("Beaver Dam");   
+
+    // THIS WORKS GREAT!!
+        //var GHTAlogo2021 = "GHTA-Logo-2021.svg",
+    //imageBounds = [[44.654012, -80.179651], [44.41852, -79.794508]];
+    //L.imageOverlay(GHTAlogo2021, imageBounds).addTo(map);
+
+    var Legend1 = "Legend1.jpg",
+    imageBounds = [[44.651078, -80.224293], [44.563565, -80.066345]];
+    L.imageOverlay(Legend1, imageBounds).addTo(map);
+
+
+    // HAZARD SYMBOLS
 
     var hazardWilderness1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
         L.marker([44.825848, -78.812276],{icon:hazardWilderness1icon}).addTo(map).bindPopup("Beaver Dam");
@@ -416,7 +431,10 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         L.marker([44.847342, -79.026429],{icon:hazardWilderness4icon}).addTo(map).bindPopup("Very difficult water crossing");
 
     var hazardWilderness5icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
-        L.marker([44.829935, -79.058466],{icon:hazardWilderness5icon}).addTo(map).bindPopup("Difficult water crossing");      
+        L.marker([44.829935, -79.058466],{icon:hazardWilderness5icon}).addTo(map).bindPopup("Difficult water crossing");   
+        
+
+
 
 
 
@@ -634,6 +652,52 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
     var pointofiterestBarrie2icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.409808, -79.791043],{icon:pointofiterestBarrie2icon}).addTo(map).bindPopup("Snow Valley Ski Resort");
+
+
+
+
+// CAMPSITES AS REGULAR MARKERS (NOT svg or png)
+
+        var WildernessCampsite1 = L.marker([44.756355, -79.107356]).bindPopup('Campsite 1').addTo(map);
+        var WildernessCampsite2 = L.marker([44.758672, -79.103714]).bindPopup('Campsite 2').addTo(map);
+        var WildernessCampsite3 = L.marker([44.764462, -79.101585]).bindPopup('Campsite 3').addTo(map);
+        var WildernessCampsite4 = L.marker([44.768785, -79.100595]).bindPopup('Campsite 4').addTo(map);
+        var WildernessCampsite5 = L.marker([44.769284, -79.100288]).bindPopup('Campsite 5').addTo(map);
+        var WildernessCampsite6 = L.marker([44.771665, -79.099352]).bindPopup('Campsite 6').addTo(map);
+        var WildernessCampsite7 = L.marker([44.771378, -79.124763]).bindPopup('Campsite 7').addTo(map);
+        var WildernessCampsite8 = L.marker([44.781932, -79.106874]).bindPopup('Campsite 8').addTo(map);
+        var WildernessCampsite9 = L.marker([44.81581, -79.072472]).bindPopup('Campsite 9').addTo(map);
+        var WildernessCampsite10 = L.marker([44.818405, -79.068256]).bindPopup('Campsite 10').addTo(map);
+
+        
+
+var Campsites = L.layerGroup([WildernessCampsite1, WildernessCampsite2, WildernessCampsite3, WildernessCampsite4, WildernessCampsite5, WildernessCampsite6, WildernessCampsite7, WildernessCampsite8, WildernessCampsite9, WildernessCampsite10]);
+
+//var poi = L.layerGroup([pointofinterestPineRide1icon, pointofinterestPineRide2icon]);
+
+ // ADDING A LEGEND IN TOP RIGHT CORNER
+
+var baseMaps = {
+    "OpenStreetMap (Standard)": osm,
+    "OpenStreetMap (Alt)": osm_HOT,
+    "OSM Cycle/Hiking (TCT & Contours)": CycleOSM,
+    "OpenTopoMap (Contours)": otm,
+
+};
+
+//L.control.layers(baseMaps).addTo(map); //Use this commad IF only the map STYLES are listed without any other layers!!
+
+
+//Adding additonal info to the LEGEND
+var overlayMaps = {
+    "QEII Provincial Park Campsites": Campsites,
+    //"Points of Interest": poi,    // Doesn't seem to work with svg/png markers. Hmm... 
+};
+
+var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map); // To add all map styles and layers to LEGEND
+
+
+
 
 
 
@@ -3723,6 +3787,144 @@ var circledotWildernessStart = L.circle([44.8068830, -78.8132760], {
 
 
 
+        // Wilderness Ragged Rapids Side Trail
+
+        var latlngs = [
+    [44.7983569, -79.0913295],
+    [44.7986650, -79.0907618],
+    [44.7995397, -79.0908445],
+    [44.8005787, -79.0912563],
+    [44.8011360, -79.0913494],
+    [44.8014590, -79.0916733],
+    [44.8016264, -79.0917886],
+    [44.8018063, -79.0918663],
+    [44.8019481, -79.0920382],
+    [44.8021200, -79.0920325],
+    [44.8023968, -79.0915680],
+    [44.8025293, -79.0915822],
+    [44.8027425, -79.0916681],
+    [44.8031143, -79.0913492],
+    [44.8033722, -79.0913407],
+    [44.8036097, -79.0913050],
+    [44.8037009, -79.0912183],
+    [44.8038475, -79.0912785],
+    [44.8037473, -79.0916164],
+    [44.8042594, -79.0909862],
+    [44.8045149, -79.0904387],
+    [44.8045378, -79.0902242],
+    [44.8046386, -79.0899235],
+    [44.8046464, -79.0895980],
+    [44.8048145, -79.0893601],
+    [44.8048057, -79.0888399],
+    [44.8047222, -79.0885918],
+    [44.8048219, -79.0882260],
+    [44.8049317, -79.0880644],
+    [44.8051551, -79.0879734],
+    [44.8055138, -79.0872645],
+    [44.8058716, -79.0865092],
+    [44.8060620, -79.0864193],
+    [44.8063017, -79.0861139],
+    [44.8065898, -79.0859371],
+    [44.8069847, -79.0854222],
+    [44.8074685, -79.0850716],
+    [44.8075512, -79.0848737],
+    [44.8078467, -79.0847431],
+    [44.8081005, -79.0844930],
+    [44.8084367, -79.0840265],
+    [44.8085905, -79.0837240],
+    [44.8088538, -79.0832506],
+    [44.8090372, -79.0831422],
+    [44.8091955, -79.0827188],
+    [44.8101123, -79.0817589],
+    [44.8108321, -79.0804989],
+    [44.8111629, -79.0801069],
+    [44.8113721, -79.0795608],
+    [44.8114008, -79.0792996],
+    [44.8116843, -79.0792438],
+    [44.8116984, -79.0788994],
+    [44.8118458, -79.0786157],
+    [44.8125127, -79.0781474],
+    [44.8126196, -79.0782089],
+    [44.8127505, -79.0781209],
+    [44.8128096, -79.0784907],
+    [44.8131006, -79.0784810],
+    [44.8138558, -79.0761787],
+    [44.8143818, -79.0752038],
+    [44.8145462, -79.0747522],
+    [44.8147426, -79.0746248],
+    [44.8149024, -79.0742942],
+    [44.8149418, -79.0734935],
+    [44.8150160, -79.0731811],
+    [44.8150308, -79.0727531],
+    [44.8155555, -79.0722213],
+    [44.8157518, -79.0720908],
+    [44.8160236, -79.0712080],
+    [44.8160468, -79.0710151],
+    [44.8161809, -79.0708619],
+    [44.8165909, -79.0703277],
+    [44.8166347, -79.0700474],
+    [44.8168185, -79.0697004],
+    [44.8169802, -79.0696082],
+    [44.8170768, -79.0693261],
+    [44.8172310, -79.0690545],
+    [44.8173762, -79.0690311],
+    [44.8176664, -79.0687178],
+    [44.8178925, -79.0680037],
+    [44.8178666, -79.0677753],
+    [44.8180692, -79.0674959],
+    [44.8183135, -79.0668184],
+    [44.8182877, -79.0663359],
+    [44.8182622, -79.0661323],
+    [44.8187851, -79.0654951],
+    [44.8188322, -79.0651527],
+    [44.8191951, -79.0644402],
+    [44.8194997, -79.0644548],
+    [44.8195828, -79.0641546],
+    [44.8197659, -79.0637704],
+    [44.8197117, -79.0634314],
+    [44.8197603, -79.0629154],
+    [44.8199684, -79.0627039],
+    [44.8201692, -79.0623191],
+    [44.8200593, -79.0620811],
+    [44.8202129, -79.0609976],
+    [44.8205963, -79.0607183],
+    [44.8207901, -79.0606994],
+    [44.8212781, -79.0603484],
+    [44.8213368, -79.0601667],
+    [44.8220301, -79.0594369],
+    [44.8223474, -79.0594201],
+    [44.8224768, -79.0595087],
+    [44.8228010, -79.0593801],
+    [44.8229695, -79.0581349],
+    [44.8229827, -79.0573536],
+    [44.8232058, -79.0569866],
+    [44.8232026, -79.0560199],
+    [44.8230260, -79.0560134],
+    [44.8230022, -79.0556486],
+    [44.8233684, -79.0556548],
+    [44.8235264, -79.0556123],
+    [44.8238639, -79.0557435],
+    [44.8240958, -79.0556366],
+    [44.8242693, -79.0554634],
+    [44.8244859, -79.0554871],
+    [44.8248769, -79.0556599],
+    [44.8251233, -79.0556206],
+    [44.8253793, -79.0558909],
+    [44.8257036, -79.0560287],
+    [44.8259149, -79.0560031],
+    [44.8263940, -79.0559064],
+    [44.8267208, -79.0561867],
+];
+
+
+        var polyline = L.polyline(latlngs, {color: 'teal', weight: 4}).addTo(map);
+        polyline.bindPopup("<b>Wilderness Side Trail</b><br>Ragged Rappids<br>");
+
+
+
+
+
+
     // ORILLIA MAIN TRAIL
 
 var latlngs = [
@@ -4083,7 +4285,7 @@ var circledotWildernessStart = L.circle([44.756539, -79.15518], {
 
                 var latlngs = [
             
-            // Improved OST
+            // Improved Orillia Side Trail
             [44.558263, -79.519998],
             [44.556903, -79.523586],
             [44.556562, -79.524656],
@@ -4093,7 +4295,7 @@ var circledotWildernessStart = L.circle([44.756539, -79.15518], {
             [44.556065, -79.529779],
             [44.55565, -79.530053],
             
-                // Original OST
+                // Original Orillia Side Trail
             //[44.5581847, -79.5199413],
             //[44.5576960, -79.5211830],
             //[44.5577230, -79.5214950],
