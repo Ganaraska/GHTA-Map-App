@@ -100,12 +100,6 @@ updateWhenIdle: false // Update the scale bar on move
 
 
 
-
-
-
-
-
-
 // USING LEAFLET "YOU ARE WITHIN...METRES OF THIS POINT" & NAVIGATOR FOR A MOVING GEOLOCATION MARKER.
 // HOWEVER, YOU END UP WITH TWO MARKERS AND TWO CIRCLES. NOT SURE HOW TO REMOVE ONE OF EACH. HMMM... 
 // YOU ARE WITHIN...
@@ -411,9 +405,12 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
     //imageBounds = [[44.654012, -80.179651], [44.41852, -79.794508]];
     //L.imageOverlay(GHTAlogo2021, imageBounds).addTo(map);
 
+
+    // WOO HOO!! ADDED A LEGEND IN GEORGIAN BAY! :)
     var Legend1 = "Legend1.jpg",
     imageBounds = [[44.651078, -80.224293], [44.563565, -80.066345]];
     L.imageOverlay(Legend1, imageBounds).addTo(map);
+    // L.imageOverlay.bindPopup("This is a legend"); // Doesn't work. Guess you can't have a .bindPopup for a jpg image. Hmm... 
 
 
     // HAZARD SYMBOLS
@@ -479,10 +476,29 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         L.marker([44.312157, -78.678842],{icon:parkingKawartha2icon}).addTo(map).bindPopup("Access <b>parking</b> by turning onto River Rd from Hwy 7. Go west a short distance then turn right (north) onto Hillhead Road Park on the roadside near the gate. Trail access is about 2 metres past the gate.");
   
     var parkingKawartha3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-        L.marker([44.36966, -78.74395],{icon:parkingKawartha3icon}).addTo(map).bindPopup("Street parking available on William Street or Orchard Park Lane.");
+        L.marker([44.36966, -78.74395],{icon:parkingKawartha3icon}).addTo(map).bindPopup("<b>Street parking</b> available on William Street or Orchard Park Lane.");
   
-  
-  
+    var parkingKawartha4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.42937, -78.769314],{icon:parkingKawartha4icon}).addTo(map).bindPopup("Naylor Road and the next five roads are suitable for parking.");
+
+    var parkingKawartha5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.4902, -78.742652],{icon:parkingKawartha5icon}).addTo(map).bindPopup("Wager Road is quiet is often used for parking.");
+
+    var parkingKawartha6icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.623814, -78.71599],{icon:parkingKawartha6icon}).addTo(map).bindPopup("Concession Road 3 is often used for roadside parking.");
+
+    var parkingKawartha7icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.705747, -78.69889],{icon:parkingKawartha7icon}).addTo(map).bindPopup("There is a parking lot on the north side of Pinery Rd.");
+
+    var parkingKawartha8icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.754814, -78.705229],{icon:parkingKawartha8icon}).addTo(map).bindPopup("Parking available at ski club parking lot.");
+        
+    var parkingKawartha9icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.784031, -78.767977],{icon:parkingKawartha9icon}).addTo(map).bindPopup("Roadside parking is available on the south side of South Beaver Lake Lane.");
+
+
+
+
         // Parking WILDERNESS
 
     var parkingWilderness1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
@@ -645,6 +661,18 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
     var pointofinterestKawartha2icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.369844, -78.743467],{icon:pointofinterestKawartha2icon}).addTo(map).bindPopup("Alongside the trail is Victoria Junction with exhibits displaying <b>rail history</b> and <b>ecological</b> info about the area. There is also a <b>convenience store</b> nearby.");
          
+    var pointofinterestKawartha3icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.414122, -78.76352],{icon:pointofinterestKawartha3icon}).addTo(map).bindPopup("Ken Reid Conservation Area");
+
+
+
+
+    var pointofinterestWilderness1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.750293,-79.115505],{icon:pointofinterestWilderness1icon}).addTo(map).bindPopup("High Falls");
+
+    var pointofinterestWilderness2icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.757500,-79.125095],{icon:pointofinterestWilderness2icon}).addTo(map).bindPopup("Sedowa Mountain");     
+         
 
 
     var pointofiterestBarrie1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
@@ -658,24 +686,25 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
 // CAMPSITES AS REGULAR MARKERS (NOT svg or png)
 
-        var WildernessCampsite1 = L.marker([44.756355, -79.107356]).bindPopup('Campsite 1').addTo(map);
-        var WildernessCampsite2 = L.marker([44.758672, -79.103714]).bindPopup('Campsite 2').addTo(map);
-        var WildernessCampsite3 = L.marker([44.764462, -79.101585]).bindPopup('Campsite 3').addTo(map);
-        var WildernessCampsite4 = L.marker([44.768785, -79.100595]).bindPopup('Campsite 4').addTo(map);
-        var WildernessCampsite5 = L.marker([44.769284, -79.100288]).bindPopup('Campsite 5').addTo(map);
-        var WildernessCampsite6 = L.marker([44.771665, -79.099352]).bindPopup('Campsite 6').addTo(map);
-        var WildernessCampsite7 = L.marker([44.771378, -79.124763]).bindPopup('Campsite 7').addTo(map);
-        var WildernessCampsite8 = L.marker([44.781932, -79.106874]).bindPopup('Campsite 8').addTo(map);
-        var WildernessCampsite9 = L.marker([44.81581, -79.072472]).bindPopup('Campsite 9').addTo(map);
-        var WildernessCampsite10 = L.marker([44.818405, -79.068256]).bindPopup('Campsite 10').addTo(map);
+        var WildernessCampsite1 = L.marker([44.756355, -79.107356]).bindPopup('Campsite 1')//.addTo(map);
+        var WildernessCampsite2 = L.marker([44.758672, -79.103714]).bindPopup('Campsite 2')//.addTo(map);
+        var WildernessCampsite3 = L.marker([44.764462, -79.101585]).bindPopup('Campsite 3')//.addTo(map);
+        var WildernessCampsite4 = L.marker([44.768785, -79.100595]).bindPopup('Campsite 4')//.addTo(map);
+        var WildernessCampsite5 = L.marker([44.769284, -79.100288]).bindPopup('Campsite 5')//.addTo(map);
+        var WildernessCampsite6 = L.marker([44.771665, -79.099352]).bindPopup('Campsite 6')//.addTo(map);
+        var WildernessCampsite7 = L.marker([44.771378, -79.124763]).bindPopup('Campsite 7')//.addTo(map);
+        var WildernessCampsite8 = L.marker([44.781932, -79.106874]).bindPopup('Campsite 8')//.addTo(map);
+        var WildernessCampsite9 = L.marker([44.81581, -79.072472]).bindPopup('Campsite 9')//.addTo(map);
+        var WildernessCampsite10 = L.marker([44.818405, -79.068256]).bindPopup('Campsite 10')//.addTo(map);
 
         
 
 var Campsites = L.layerGroup([WildernessCampsite1, WildernessCampsite2, WildernessCampsite3, WildernessCampsite4, WildernessCampsite5, WildernessCampsite6, WildernessCampsite7, WildernessCampsite8, WildernessCampsite9, WildernessCampsite10]);
 
-//var poi = L.layerGroup([pointofinterestPineRide1icon, pointofinterestPineRide2icon]);
+var poi = L.layerGroup([pointofinterestPineRide1icon, pointofinterestPineRide2icon]);
 
- // ADDING A LEGEND IN TOP RIGHT CORNER
+
+ // ADDING OVERLAY LAYERS SIMILAR TO A LEGEND IN TOP RIGHT CORNER
 
 var baseMaps = {
     "OpenStreetMap (Standard)": osm,
@@ -685,19 +714,22 @@ var baseMaps = {
 
 };
 
-//L.control.layers(baseMaps).addTo(map); //Use this commad IF only the map STYLES are listed without any other layers!!
+//L.control.layers(baseMaps).addTo(map); // Original code - Use this commad IF only the map STYLES are listed without any other layers!!
 
 
 //Adding additonal info to the LEGEND
-var overlayMaps = {
+var overlayMarkers = {
     "QEII Provincial Park Campsites": Campsites,
-    //"Points of Interest": poi,    // Doesn't seem to work with svg/png markers. Hmm... 
+    //"Points of Interest": poi,    // This statement puts a box in the Overlay legend, but the POIs don't toggle ON/OFF. 
 };
 
-var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map); // To add all map styles and layers to LEGEND
+// Doesn't work, but looks as if is should... :(
+//var overlays = {
+    //"Points of Interest": poi,
 
-
-
+//};
+    
+var layerControl = L.control.layers(baseMaps, overlayMarkers).addTo(map); // To add all map styles and layers to LEGEND
 
 
 
@@ -6647,6 +6679,77 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
 
 
 
+    // KAWAWRTHA FOREST TRACTS
+
+    var KawarthaSomerville = [
+
+    [44.7655716, -78.7732196],
+    [44.7778897, -78.7216471],
+    [44.7662772, -78.7161432],
+    [44.7679933, -78.7089139],
+    [44.7446244, -78.6976776],
+    [44.7472395, -78.6867323],
+    [44.7586676, -78.6920003],
+    [44.7590523, -78.6917509],
+    [44.7616315, -78.6809823],
+    [44.7733311, -78.6866971],
+    [44.7750592, -78.6794851],
+    [44.7806152, -78.6822342],
+    [44.7843907, -78.6675200],
+    [44.7785629, -78.6648395],
+    [44.7768272, -78.6719090],
+    [44.7654222, -78.6665560],
+    [44.7635263, -78.6738270],
+    [44.7598070, -78.6721479],
+    [44.7600757, -78.6727174],
+    [44.7604286, -78.6728043],
+    [44.7606005, -78.6732902],
+    [44.7602590, -78.6737588],
+    [44.7598496, -78.6739901],
+    [44.7593875, -78.6738444],
+    [44.7587432, -78.6740345],
+    [44.7581133, -78.6740472],
+    [44.7569868, -78.6737186],
+    [44.7558749, -78.6783877],
+    [44.7380772, -78.6703100],
+    [44.7329968, -78.6919539],
+    [44.7150068, -78.6841266],
+    [44.7166679, -78.6768459],
+    [44.7153489, -78.6761953],
+    [44.7136292, -78.6777506],
+    [44.7109213, -78.6789566],
+    [44.7093129, -78.6784173],
+    [44.7053114, -78.6953484],
+    [44.6940914, -78.6900011],
+    [44.6938751, -78.6909296],
+    [44.6994434, -78.6951145],
+    [44.6983044, -78.6998592],
+    [44.7043409, -78.7026371],
+    [44.7026635, -78.7097873],
+    [44.7612574, -78.7371607],
+    [44.7557055, -78.7607971],
+    [44.7496541, -78.7583724],
+    [44.7480614, -78.7655623],
+    [44.7539269, -78.7680960],
+    [44.7537162, -78.7689604],
+    [44.7647273, -78.7737183],
+    [44.7647273, -78.7737183],
+
+    ];
+
+var polygon = L.polygon(KawarthaSomerville, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+    polygon.bindPopup("Kawartha Forest<br><b>Somerville Forest Tract</b>");
+
+
+
+
+
+
     // SIMCOE COUNTY FOREST TRACTS... ONE AT A TIME... GOOD GRIEF & LOL!! .)
     // I start capturing coordinates at the NW corner and work clockwise. 
 
@@ -6675,10 +6778,32 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
 
    
         var Rathburn1coords = [
-      [44.6529006,-79.2227105],
-      [44.6593557,-79.1937763],
-      [44.6483309,-79.1894265],
-      [44.6420993,-79.2181869],
+     [44.6615535, -79.2423923],
+    [44.6727570, -79.1915718],
+    [44.6610673, -79.1865638],
+    [44.6595347, -79.1938503],
+    [44.6423299, -79.1865952],
+    [44.6391489, -79.2012697],
+    [44.6331282, -79.1985429],
+    [44.6299240, -79.2129294],
+    [44.6299973, -79.2131217],
+    [44.6476066, -79.2205496],
+    [44.6427901, -79.2423165],
+    [44.6387408, -79.2406459],
+    [44.6415100, -79.2478560],
+    [44.6404400, -79.2520600],
+    [44.6388914, -79.2608822],
+    [44.6444513, -79.2631440],
+    [44.6452432, -79.2595468],
+    [44.6447329, -79.2592362],
+    [44.6483890, -79.2429791],
+    [44.6471365, -79.2425519],
+    [44.6481092, -79.2383186],
+    [44.6486606, -79.2376548],
+    [44.6494192, -79.2380009],
+    [44.6499932, -79.2354535],
+    [44.6544037, -79.2455671],
+    [44.6557164, -79.2399778],
     ];
     var polygon = L.polygon(Rathburn1coords, {
       color: 'salmon',       // Border color
@@ -6689,19 +6814,19 @@ var circledotMidlandStart = L.circle([44.6770280, -79.7416420], {
     polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (South of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting<p><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
 
 
-var Rathburn2coords = [
-      [44.6647709,-79.2277437],
-      [44.6727515,-79.1915651],
-      [44.661076, -79.18656],
-      [44.6530978,-79.2227904],
-    ];
-    var polygon = L.polygon(Rathburn2coords, {
-      color: 'salmon',       // Border color
-      weight: 2,           // Border thickness
-      fillColor: 'salmon', // Fill color
-      fillOpacity: 0.5     // Fill transparency
-    }).addTo(map);
-    polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (North of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting<p><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
+//var Rathburn2coords = [
+      //[44.6647709,-79.2277437],
+      //[44.6727515,-79.1915651],
+      //[44.661076, -79.18656],
+      //[44.6530978,-79.2227904],
+    //];
+    //var polygon = L.polygon(Rathburn2coords, {
+      //color: 'salmon',       // Border color
+      //weight: 2,           // Border thickness
+      //fillColor: 'salmon', // Fill color
+      f//illOpacity: 0.5     // Fill transparency
+    //).addTo(map);
+    //polygon.bindPopup("Simcoe County Forest<b><br>Rathburn Tract (North of Con 13)</b><p><b>Activities Allowed:</b> Hiking, XC Skiing, Cycling, Horseback Riding, Snowmobiling, Dog Walking, Trapping, Hunting<p><b>Forbiden Activities:</b> Target shooting, Camping, ATV");
 
 
 // Define polygon coordinates for Simcoe County Forest Tracts
@@ -6732,8 +6857,6 @@ var Rathburn2coords = [
 
 
             // BARRIE Forest Tracts
-
-
 
 
     var Strachan1coords = [
@@ -7004,7 +7127,7 @@ var circledotTinyStart = L.circle([44.7499988,-79.9602955], {
 
 
 
-        // DISTANCE MARKERS:
+        // DISTANCE MARKERS: ********************************************************
 
 
     // PINE RIDGE DM
@@ -7189,10 +7312,88 @@ var PineRidgeDist18 = L.circle([44.27023, -78.610896], {
 PineRidgeDist18.bindPopup("<b>KM 62.7</b><br>").addTo(map);
 
 
+// KAWARTHA
 
+var KawarthaDist1 = L.circle([44.333584, -78.70878], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist1.bindPopup("<b>KM 7.8</b><br>").addTo(map);
 
+var KawarthaDist2 = L.circle([44.344169, -78.722943], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist2.bindPopup("<b>KM 9.4</b><br>").addTo(map);
 
+var KawarthaDist3 = L.circle([44.381064, -78.751326], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist3.bindPopup("<b>KM 15.9</b><br>").addTo(map);    // Thunder Bridge Road
 
+var KawarthaDist4 = L.circle([44.400426, -78.758717], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist4.bindPopup("<b>KM 18.2</b><br>In the summer look for red wing black birds.").addTo(map);   // Kenrei Road
+
+var KawarthaDist5 = L.circle([44.440646, -78.769958], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist5.bindPopup("<b>KM 23.4</b>").addTo(map);
+
+var KawarthaDist6 = L.circle([44.440646, -78.769958], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist6.bindPopup("<b>KM 25.0</b>").addTo(map);
+
+var KawarthaDist7 = L.circle([44.467712, -78.753423], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist7.bindPopup("<b>KM 26.9</b>").addTo(map);
+
+var KawarthaDist8 = L.circle([44.514387, -78.73531], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist8.bindPopup("<b>KM 32.3</b>").addTo(map);   // West Street South
+
+var KawarthaDist9 = L.circle([44.531212, -78.739985], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+KawarthaDist9.bindPopup("<b>KM 33.4</b>").addTo(map);
 
 
 
@@ -7476,20 +7677,20 @@ var circledotTinyStart = L.circle([44.7499986, -79.9602998], {
 
 // geoJSON attempt (the below DOESN'T WORK! ARGH!!!!! :)
 
-var RathburnYoungLake = [{
+//var RathburnYoungLake = [{
     //"type": "Feature",
     //"properties": {"party": "Democrat"},
-    "geometry": {
-        "type": "Polygon",
-        "color": "#ff7800",
-    "weight": 5,
-    "opacity": 0.65,
-        "coordinates": [[
-            [ -79.171219486713568, 44.712539935239569 ], [ -79.171018753893264, 44.712096199701392 ], [ -79.170963849839097, 44.712108829929704 ], [ -79.170733237289255, 44.712161872389999 ], [ -79.170714599554543, 44.712120679783858 ], [ -79.170549293296148, 44.711755252435644 ], [ -79.170383989081159, 44.711389823960076 ], [ -79.170218686966265, 44.711024392557619 ], [ -79.169120547098316, 44.711276972700354 ], [ -79.167105205672613, 44.706821128339151 ], [ -79.167141809782464, 44.706812708242033 ], [ -79.170527713976909, 44.706033667360572 ], [ -79.173581664288591, 44.713173337974681 ], [ -79.174138509173034, 44.714486028407201 ], [ -79.170910309244377, 44.7152334885672 ], [ -79.169835793491288, 44.712858192990218 ], [ -79.171219486713568, 44.712539935239569 ]
-        ]]
-    }
+   // "geometry": {
+        //"type": "Polygon",
+        //"color": "#ff7800",
+    //"weight": 5,
+    //"opacity": 0.65,
+        //"coordinates": [[
+            //[ -79.171219486713568, 44.712539935239569 ], [ -79.171018753893264, 44.712096199701392 ], [ -79.170963849839097, 44.712108829929704 ], [ -79.170733237289255, 44.712161872389999 ], [ -79.170714599554543, 44.712120679783858 ], [ -79.170549293296148, 44.711755252435644 ], [ -79.170383989081159, 44.711389823960076 ], [ -79.170218686966265, 44.711024392557619 ], [ -79.169120547098316, 44.711276972700354 ], [ -79.167105205672613, 44.706821128339151 ], [ -79.167141809782464, 44.706812708242033 ], [ -79.170527713976909, 44.706033667360572 ], [ -79.173581664288591, 44.713173337974681 ], [ -79.174138509173034, 44.714486028407201 ], [ -79.170910309244377, 44.7152334885672 ], [ -79.169835793491288, 44.712858192990218 ], [ -79.171219486713568, 44.712539935239569 ]
+        //]]
+    //}
         
-}].addto(map);
+//}].addto(map);
 
 
 
