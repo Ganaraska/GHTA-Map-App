@@ -60,7 +60,7 @@ map.setView([44.613927, -79.414964], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap, GoTheDistanceMaps, GHTA Inc.</a>'
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap, GoTheDistanceMaps, GHTA, ESRI</a>'
 }).addTo(map);
 
 
@@ -86,6 +86,10 @@ var CycleOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z
 	maxZoom: 19,
 	//attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
+
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	// attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
 
 
 // Add a scale bar to the map-------------------------------------------------------------------------------------
@@ -351,7 +355,7 @@ var circleWasagaBeachStart = L.circle([44.565394, -79.994545], {
 }).addTo(map);
 // Add this to create a popup for the 
 //circleWasagaBeachStart.bindPopup("<h3>Wasaga Beach Start</h3><p>The trail winds through the fragile ancient parabolic sand dunes of Wasaga Beach Provincial Park to Wasaga Beach, providing great views of the Nottawasaga River deep below in the valley. From there, the trail goes through the valley of the McIntyre Creek and passes along quiet country roads to Smithdale, east of Glen Huron, where it connects with the Mad River section. The section is about 48.5 kilometres long and is suitable for novices.")
-circleWasagaBeachStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2022/03/Trail-Guide-Description-Wasaga-Beach-20210613.docx.pdf" target="_blank"><h4>Wasaga Beach Trail Guide</h4></a><p><b><h3>Wasaga Beach Start</h3></b><p>44.565332, -79.994548<p>The trail winds through the fragile ancient parabolic sand dunes of Wasaga Beach Provincial Park to Wasaga Beach, providing great views of the Nottawasaga River deep below in the valley. From there, the trail goes through the valley of the McIntyre Creek and passes along quiet country roads to Smithdale, east of Glen Huron, where it connects with the Mad River section. The section is about 48.5 kilometres long and is suitable for novices.');
+circleWasagaBeachStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-content/uploads/2022/03/Trail-Guide-Description-Wasaga-Beach-20210613.docx.pdf" target="_blank"><h4>Wasaga Beach Trail Guide</h4></a><p><b><h3>Wasaga Beach Start</h3></b><p>44.565332, -79.994548<p>The trail winds through the fragile ancient parabolic sand dunes of Wasaga Beach Provincial Park to Wasaga Beach, providing great views of the Nottawasaga River deep below in the valley. From there, the trail goes through the valley of the McIntyre Creek and passes along quiet country roads to Smithdale, east of Glen Huron, where it connects with the Mad River section. The section is about 50 kilometres long and is suitable for novices.');
 
 // Additional Circle & Other Information Popups
 
@@ -590,23 +594,53 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
          L.marker([44.37877,-79.82517],{icon:parkingBarrie9icon}).addTo(map).bindPopup("Small parking lot by Miller Tract on west side of Pinegrove Rd."); 
 
     //var parkingBarrie9icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         //L.marker([44.39425, -79.82031],{icon:parkingBarrie9icon}).addTo(map).bindPopup("NOT MENTIONED IN TRAIL GUIDE");        
- 
+         //L.marker([44.39425, -79.82031],{icon:parkingBarrie9icon}).addTo(map).bindPopup("NOT MENTIONED IN TRAIL GUIDE");     
          
+         
+
+
+    // Parking MAD RIVER
+
+    var parkingMadRiver1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.35244, -79.973046],{icon:parkingMadRiver1icon}).addTo(map).bindPopup("Roadside parking at entrance of <b>New Lowell Campground</b> - Do <b>NOT</b> block the entrance!");
+ 
+    var parkingMadRiver2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.33569, -79.98739],{icon:parkingMadRiver2icon}).addTo(map).bindPopup("Parking near forest gate on Con 2 Sunnidale at Simcoe County Forest Hogback Tract."); 
+         
+    var parkingMadRiver3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.318700,-79.993142],{icon:parkingMadRiver3icon}).addTo(map).bindPopup("While not exactly on the Ganaraska Trail, there is a parking lot on the east side of the road.");
+
+    var parkingMadRiver4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.301504, -80.020667],{icon:parkingMadRiver4icon}).addTo(map).bindPopup("Parking fee required."); 
+
+    var parkingMadRiver5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.330525, -80.042205],{icon:parkingMadRiver5icon}).addTo(map).bindPopup("There is off-road parking on the west side of Centre Line Road, where the all purpose trail (used by ATVs and snowmobiles) enters the Simcoe County Forest Lawden Tract (aka Louden Tract)."); 
+
+    var parkingMadRiver6icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.310697, -80.072091],{icon:parkingMadRiver6icon}).addTo(map).bindPopup("Playground and washrooms available."); 
+
+
+
+    // Parking Wasaga Beach
+
+    var parkingWasagaBeach1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.525273, -80.017979],{icon:parkingWasagaBeach1icon}).addTo(map).bindPopup("Plenty of seasonal for-a-fee <b>municipal parking</b> and often monitoried by law enforcement. The concentration of cannabis stores is unparalleled. No wonder it's often referred to as Weedsaga Beach."); 
+
+
     
-    // PARKING MIDLAND
+    // Parking MIDLAND
 
     var parkingMidland1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
          L.marker([44.677363,-79.741924],{icon:parkingMidland1icon}).addTo(map).bindPopup("There is limited parking on the shoulder of Reeves Road. <b>Dogs are NOT allowed</b> on this section at the request of the landowner who owns sheep."); 
     
     var parkingMidland2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         L.marker([44.705068, -79.751699],{icon:parkingMidland2icon}).addTo(map).bindPopup("Hogg Valley Road has roadside parking. <b>Please do NOT block the gate</b> (KM 4.1)."); 
+         L.marker([44.705068, -79.751699],{icon:parkingMidland2icon}).addTo(map).bindPopup("Hogg Valley Road has roadside parking. Please do NOT block the gate</b> (<b>KM 4.1</b>)."); 
 
     var parkingMidland3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         L.marker([44.72085, -79.768405],{icon:parkingMidland3icon}).addTo(map).bindPopup("There is limited parking here on the shoulder. <b>Please do NOT block the entrances to the snowmobile trail</b>. (KM 8.4)"); 
+         L.marker([44.72085, -79.768405],{icon:parkingMidland3icon}).addTo(map).bindPopup("There is limited parking here on the shoulder. Please do <b>NOT block</b> the entrance to the snowmobile trail. (<b>KM 8.4</b>)"); 
 
     var parkingMidland4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         L.marker([44.736689, -79.846243],{icon:parkingMidland4icon}).addTo(map).bindPopup("<b>Sainte Marie Park</b> - Parking lot on north side of HWY 12 on the east side of Wye Valley Rd has plenty of parking (not to be confused with Sainte Marie Among the Hurons parking lot, which is on the SE side of the Wye River & Hwy 12). (KM 13.6)"); 
+         L.marker([44.736689, -79.846243],{icon:parkingMidland4icon}).addTo(map).bindPopup("<b>Sainte Marie Park</b> - Parking lot on north side of HWY 12 on the east side of Wye Valley Rd has plenty of parking (not to be confused with Sainte Marie Among the Hurons parking lot, which is on the SE side of the Wye River & Hwy 12). (<b>KM 13.6</b>)"); 
 
     var parkingMidland5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
          L.marker([44.759095, -79.878471],{icon:parkingMidland5icon}).addTo(map).bindPopup("<b>Small parking lot</b> for approximately 8 cars on the west side of Aberdeen Blvd., but only park on the south side of the office buildings."); 
@@ -618,7 +652,7 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
          L.marker([44.755152, -79.898802],{icon:parkingMidland7icon}).addTo(map).bindPopup("Large parking lot at <b>Pete Pettersen Park</b> with its beach, boat launch, playground, baseball field, and views of Georgian Bay, as well as Bayport Marina and the Midland Sailing Club. Lots of free parking!");
 
     var parkingMidland8icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-         L.marker([44.759686, -79.903249],{icon:parkingMidland8icon}).addTo(map).bindPopup("Parking at Corner of Harbourview & Sunnyside. <br>(KM 21.0)");
+         L.marker([44.759686, -79.903249],{icon:parkingMidland8icon}).addTo(map).bindPopup("Parking at Corner of Harbourview & Sunnyside. <br>(<b>KM 21.0</b>)");
 
     var parkingMidland9icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
          L.marker([44.74367, -79.956463],{icon:parkingMidland9icon}).addTo(map).bindPopup("New large parking lot");
@@ -628,8 +662,42 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
 
 
+    // Parking TINY
 
-         // POI - Points-Of-Interest
+
+    var parkingTiny1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.735367, -79.972803],{icon:parkingTiny1icon}).addTo(map).bindPopup("Parking for 8-10 vehicles and summer washrooms.");
+
+    var parkingTiny2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.709982, -79.963148],{icon:parkingTiny2icon}).addTo(map).bindPopup("<b>Bernie Leclair Memorial Park</b> offers a parkette, picnic area, washrooms, and ample parking.");
+
+    var parkingTiny3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.653566, -79.926064],{icon:parkingTiny3icon}).addTo(map).bindPopup("<b>Wyevale Parkette</b> & ball field offers plenty of parking, picnic tables and washrooms.");
+
+    var parkingTiny4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.615935, -79.921224],{icon:parkingTiny4icon}).addTo(map).bindPopup("The NE1 Parking lot of the <b>Tiny Marsh</b> accommodates 10-15 cars. There is a sluice on the north side of the parking lot.");
+
+    var parkingTiny5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.593386, -79.932254],{icon:parkingTiny5icon}).addTo(map).bindPopup("<b>Tiny Marsh Visitor Centre</b> has a picnic shelter and parking for 20-25 cars. The visitor centre is usually closed, except for special occasions. There are NO washrooms.")
+
+    var parkingTiny6icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.587816, -79.943539],{icon:parkingTiny6icon}).addTo(map).bindPopup("Snowmobile parking lot.");
+
+    var parkingTiny7icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.574168, -79.975437],{icon:parkingTiny7icon}).addTo(map).bindPopup("There is limited parking on the shoulder. Do not block any gates or driveways.");
+
+
+
+
+    // Parking ORO-MEDONTE
+
+    var parkingOroMedonte1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+         L.marker([44.587263, -79.682417],{icon:parkingOroMedonte1icon}).addTo(map).bindPopup("'P2' <b>Copeland Forest</b> parking has a large lot offering space for horse trailers too.");
+
+
+
+
+// POI - Points-Of-Interest
 
     var pointofinterestPineRide1icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([43.976988,-78.332168],{icon:pointofinterestPineRide1icon}).addTo(map).bindPopup("<b>Northumberland Hills Drumlins</b><br>Drumlins are elongated, oval-shaped mounds of glacial till deposited and shaped beneath advancing ice sheets during the last ice age.");
@@ -711,7 +779,7 @@ var baseMaps = {
     "OpenStreetMap (Alt)": osm_HOT,
     "OSM Cycle/Hiking (TCT & Contours)": CycleOSM,
     "OpenTopoMap (Contours)": otm,
-
+    "ESRI World Imagery": Esri_WorldImagery,
 };
 
 //L.control.layers(baseMaps).addTo(map); // Original code - Use this commad IF only the map STYLES are listed without any other layers!!
@@ -5992,6 +6060,7 @@ var latlngs = [
     [44.3559580, -80.1503040],
     [44.3557800, -80.1504620],
     [44.3526700, -80.1497320],
+    [44.350447, -80.149203],       // Wasaga Beach joins Mad River
 ];
 
 var polyline = L.polyline(latlngs, {color: 'mediumvioletred', weight: 6}).addTo(map);
@@ -7005,7 +7074,7 @@ var Tustincoords = [
     polygon.bindPopup("Simcoe County Forest - <b>Tustin Tract</b><p>");
 
 
-var Amoscoords = [
+    var Amoscoords = [
       [44.568919, -79.659556],
       [44.5716472,-79.6531776],
       [44.5687778,-79.6507728],
@@ -7024,7 +7093,140 @@ var Amoscoords = [
     polygon.bindPopup("Simcoe County Forest - <b>Amos Tract</b><p>");
 
 
-            // MIDLAND SIMCOE COUNTY FORESTS
+    
+    var NorthBarrcoords = [
+        [44.539760,-79.701881],
+        [44.5446099,-79.6907463],
+        [44.528676,-79.677555],
+        [44.5249039,-79.6860474],
+        [44.5268445,-79.6878655],
+        [44.5259252,-79.6899185]
+    ];
+
+    var polygon = L.polygon(NorthBarrcoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.5     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>North Barr Tract</b><p>");
+
+
+    var OrrockCreekNEcoords = [
+        [44.5136844,-79.7594302],
+        [44.5185153,-79.7485499],
+        [44.5149680,-79.7455302],
+        [44.5132306,-79.7494568],
+        [44.5104772,-79.7469619],
+        [44.5098303,-79.7484382],
+        [44.5129704,-79.7512363],
+        [44.5108647,-79.7560474],
+        [44.5113237,-79.7564742],
+        [44.511038, -79.757097],
+    ];
+
+    var polygon = L.polygon(OrrockCreekNEcoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.4     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Orrock Creek N.E. Tract</b><p>");
+
+
+    var OrrockCreekNcoords = [
+        [44.497935,-79.766190],
+        [44.501102,-79.758921],
+        [44.500913,-79.758771],
+        [44.5041561,-79.7515118],
+        [44.494567,-79.743248],
+        [44.4914327,-79.7503313], // SW corner
+        [44.4918888,-79.7507500],
+        [44.4919804,-79.7505577],
+        [44.4929458,-79.7514862],
+        [44.4931848,-79.7509455],
+        [44.4957880,-79.7534386],
+        [44.4954523,-79.7541985],
+        [44.4964155,-79.7551198],
+        [44.4932995,-79.7621606],
+    ];
+
+    var polygon = L.polygon(OrrockCreekNcoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.4     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Orrock Creek North Tract</b><p>");
+
+
+    var OrrockCreekScoords = [
+        [44.4914317,-79.7503343], // Northern NW corner
+        [44.49456048,-79.74326273],
+        [44.4826764,-79.7330525],
+        [44.4795147,-79.7398796],
+        [44.478779,-79.739253],
+        [44.4766443,-79.7410955],
+        [44.4747488,-79.7453501],
+        [44.4739747,-79.7446766],
+        [44.4735928,-79.7447175],
+        [44.4729458,-79.7453382],
+        [44.4725721,-79.7454384],
+        [44.4725534,-79.7454864],
+        [44.471094,-79.744242],
+        [44.468502,-79.750293],
+        [44.468106,-79.749957],
+        [44.4654121,-79.7559821],
+        [44.470776,-79.760413],
+        [44.473818,-79.753971],
+        [44.477621,-79.756873],
+        [44.477610,-79.756873],
+        [44.480643,-79.750228],
+        [44.484107,-79.753312],
+        [44.487110,-79.746457],
+    ];
+
+    var polygon = L.polygon(OrrockCreekScoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.4     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Orrock Creek South Tract</b><p>");
+
+
+    var Midhurstcoords = [
+        [44.4540753,-79.7378970],
+        [44.4567970,-79.7317977],
+        [44.4567001,-79.7317082],
+        //[44.45593025,-79.73353192],
+        [44.455908, -79.733494],
+        [44.4547530,-79.7326508],
+        [44.4545113,-79.7320217],
+        [44.4541666,-79.7328080],
+        [44.4516853,-79.7307552],
+        [44.4500561,-79.7344112],
+    ];
+
+    var polygon = L.polygon(Midhurstcoords, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.4     // Fill transparency
+    }).addTo(map);
+
+    polygon.bindPopup("Simcoe County Forest - <b>Midhurst Tract</b><p>");
+
+
+
+
+
+
+// MIDLAND SIMCOE COUNTY FORESTS
 
     var ThompsonWestcoords = [
       [44.7516099,-79.9633007],
@@ -7778,6 +7980,194 @@ BarrieDist3.bindPopup("<b>KM 7.7</b><br>Junction at Sign Post 11").addTo(map);
 BarrieDist4.bindPopup("<b>KM 16.0</b><br>Horseshoe Valley Rd & Penetanguishene Rd").addTo(map);
 
 
+var BarrieDist8 = L.circle([44.427475, -79.805923], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+BarrieDist8.bindPopup("<b>KM 38.4</b>").addTo(map);
+
+
+var BarrieDist5 = L.circle([44.458627, -79.742724], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+BarrieDist5.bindPopup("<b>KM 27.5</b>").addTo(map);
+
+
+var BarrieDist6 = L.circle([44.396045, -79.822889], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+BarrieDist6.bindPopup("<b>KM 42.9</b>").addTo(map);
+
+
+var BarrieDist7 = L.circle([44.366103,-79.835993], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+BarrieDist7.bindPopup("<b>KM 47.5</b>").addTo(map);
+
+
+// ORO-MEDONTE Distance Markers
+
+var OroMedonteDist1 = L.circle([44.588706, -79.687261], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+OroMedonteDist1.bindPopup("<b>KM 3.4</b>").addTo(map);
+
+var OroMedonteDist2 = L.circle([44.604421, -79.68040], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+OroMedonteDist2.bindPopup("<b>KM 6.5</b>").addTo(map);
+
+var OroMedonteDist3 = L.circle([44.661467, -79.728564], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+OroMedonteDist3.bindPopup("<b>KM 6.5</b>").addTo(map);
+
+
+
+
+
+
+// MAD RIVER Distance Markers
+
+var MadRiverDist1 = L.circle([44.325414, -79.853548], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist1.bindPopup("<b>KM 2.8</b>").addTo(map);
+
+
+var MadRiverDist2 = L.circle([44.319533,-79.878137], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist2.bindPopup("<b>KM 4.9</b>").addTo(map);
+
+
+var MadRiverDist3 = L.circle([44.327532, -79.913652], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist3.bindPopup("<b>KM 7.9</b>").addTo(map);
+
+
+var MadRiverDist4 = L.circle([44.3447007,-79.9458785], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist4.bindPopup("<b>KM 11.1</b>").addTo(map);
+
+
+var MadRiverDist5 = L.circle([44.333735,-79.996570], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist5.bindPopup("<b>KM 16.9</b>").addTo(map);
+
+
+var MadRiverDist6 = L.circle([44.309562, -79.990925], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist6.bindPopup("<b>KM 21.8</b>").addTo(map);
+
+
+var MadRiverDist7 = L.circle([44.305455, -80.001937], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist7.bindPopup("<b>KM 22.8</b>").addTo(map);
+
+
+var MadRiverDist8 = L.circle([44.310288, -80.075183], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist8.bindPopup("<b>KM 34.3</b>").addTo(map);
+
+
+var MadRiverDist8 = L.circle([44.330061, -80.110239], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist8.bindPopup("<b>KM 39.3</b>").addTo(map);
+
+
+var MadRiverDist9 = L.circle([44.350447,-80.149203], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist9.bindPopup("<b>KM 45.0</b>").addTo(map);
+
+
+var MadRiverDist10 = L.circle([44.3470242,-80.1932551], { 
+    color: 'black',
+    //fillColor: 'wh#FFFFFF',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 15,
+}).addTo(map);
+MadRiverDist10.bindPopup("<b>KM 50.0</b>").addTo(map);
+
+
+
+
 // Midland Distance Markers
 
 var MidlandDist1 = L.circle([44.729709, -79.808472], { 
@@ -7788,6 +8178,175 @@ var MidlandDist1 = L.circle([44.729709, -79.808472], {
     radius: 20,
 }).addTo(map);
 MidlandDist1.bindPopup("<b>KM 11.5</b><br>").addTo(map);
+
+
+
+// TINY Distance Markers
+
+var TinyDist1 = L.circle([44.722222, -79.96771], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist1.bindPopup("<b>KM 4.9</b><br>").addTo(map);
+
+
+var TinyDist2 = L.circle([44.698108, -79.958325], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist2.bindPopup("<b>KM 7.7</b><br>").addTo(map);
+
+
+var TinyDist3 = L.circle([44.685338, -79.953161], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist3.bindPopup("<b>KM 9.2</b><br>").addTo(map);
+
+
+var TinyDist4 = L.circle([44.664387, -79.935377], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist4.bindPopup("<b>KM 11.9</b><br>").addTo(map);
+
+
+var TinyDist5 = L.circle([44.643013, -79.917009], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist5.bindPopup("<b>KM 14.7</b><br>").addTo(map);
+
+
+var TinyDist6 = L.circle([44.633685, -79.908988], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist6.bindPopup("<b>KM 15.9</b><br>").addTo(map);
+
+var TinyDist7 = L.circle([44.613938, -79.917222], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist7.bindPopup("<b>KM 20.0</b><br>").addTo(map);
+
+var TinyDist8 = L.circle([44.612647, -79.924067], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist8.bindPopup("<b>KM 20.9</b><br>").addTo(map);
+
+
+var TinyDist9 = L.circle([44.595021, -79.928992], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist9.bindPopup("<b>KM 24.0</b><br>").addTo(map);
+
+
+var TinyDist10 = L.circle([44.571525,-79.981207], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+TinyDist10.bindPopup("<b>KM 29.3</b><br>").addTo(map);
+
+
+// WASAGA BEACH Distance Markers
+
+var WasagaBeachDist1 = L.circle([44.545845, -79.999717], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+WasagaBeachDist1.bindPopup("<b>KM 3.0</b><br>").addTo(map);
+
+var WasagaBeachDist2 = L.circle([44.523291, -80.003942], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+WasagaBeachDist2.bindPopup("<b>KM 6.0</b><br>").addTo(map);
+
+var WasagaBeachDist3 = L.circle([44.488796, -80.033515], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+WasagaBeachDist3.bindPopup("<b>KM 15.0</b><br>").addTo(map);
+
+var WasagaBeachDist4 = L.circle([44.448854, -80.050336], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+WasagaBeachDist4.bindPopup("<b>KM 29.3</b><br>").addTo(map);
+
+var WasagaBeachDist5 = L.circle([44.405084, -80.058948], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+WasagaBeachDist5.bindPopup("<b>KM 38.0</b><br>").addTo(map);
+
+var WasagaBeachDist6 = L.circle([44.379097, -80.121039], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+WasagaBeachDist6.bindPopup("<b>KM 43.0</b><br>").addTo(map);
+
+var WasagaBeachDist7 = L.circle([44.352654, -80.149727], { 
+    color: 'black',
+    //fillColor: '#00BFFF0',
+    fillOpacity: 1,
+    weight: 10,
+    radius: 20,
+}).addTo(map);
+WasagaBeachDist7.bindPopup("<b>KM 50.0</b><br>").addTo(map);
+
+
 
 
 
