@@ -946,7 +946,22 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
        
     var parkingPineRidge3icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
         L.marker([44.129854, -78.530232],{icon:parkingPineRidge3icon}).addTo(map).bindPopup("Parking and <b>lunch spot</b> at Old Marsh Anglican Church."); 
+      
         
+    var parkingPineRidge4icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([43.996579, -78.34154],{icon:parkingPineRidge4icon}).addTo(map).bindPopup("Parking available on south side of 4th Line.");
+
+
+    var parkingPineRidge5icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([43.991008, -78.32849],{icon:parkingPineRidge5icon}).addTo(map).bindPopup("Parking available in Conservation Area, except in winter.");
+
+
+    var parkingPineRidge6icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
+        L.marker([44.242511, -78.580248],{icon:parkingPineRidge6icon}).addTo(map).bindPopup("Roadside parking on Hogsback Road.");
+
+
+
+
 
         // Parking KAWARTHA
 
@@ -969,7 +984,7 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         L.marker([44.623814, -78.71599],{icon:parkingKawartha6icon}).addTo(map).bindPopup("Concession Road 3 is often used for roadside parking.");
 
     var parkingKawartha7icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-        L.marker([44.705747, -78.69889],{icon:parkingKawartha7icon}).addTo(map).bindPopup("There is a parking lot on the north side of Pinery Rd.");
+        L.marker([44.7057013,-78.6993721],{icon:parkingKawartha7icon}).addTo(map).bindPopup("Parking lot on the north side of Pinery Rd. Walk through gate at north end of lot and follow a bush road for 3.2 kms.");
 
     var parkingKawartha8icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
         L.marker([44.754814, -78.705229],{icon:parkingKawartha8icon}).addTo(map).bindPopup("Parking available at ski club parking lot.");
@@ -983,7 +998,7 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         // Parking WILDERNESS
 
     var parkingWilderness1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-        L.marker([44.806185,-78.813349],{icon:parkingWilderness1icon}).addTo(map).bindPopup("Parking availale along Country Rd. This marks the end of the <b>Kawartha</b> trail and the beginning of the <b>Wilderness</b> trail.");
+        L.marker([44.806185,-78.813349],{icon:parkingWilderness1icon}).addTo(map).bindPopup("Grassy parking lot behind storage building kindly provided for GHTA use by Bill & Sandy Valentine.");
 
     var parkingWilderness2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
         L.marker([44.859436, -78.815888],{icon:parkingWilderness2icon}).addTo(map).bindPopup("There's a parking lot by Devil's Lake Road & Deep Bay Road.");
@@ -1844,7 +1859,7 @@ var polygon = L.polygon(KawarthaSomerville, {
       color: 'salmon',       // Border color
       weight: 2,           // Border thickness
       fillColor: 'salmon', // Fill color
-      fillOpacity: 0.5     // Fill transparency
+      fillOpacity: 0.3     // Fill transparency
     }).addTo(map);
     polygon.bindPopup("Kawartha Forest<br><b>Somerville Tract</b><p><b>Activities:</b> Hiking, XC Skiing");
 
@@ -7434,13 +7449,33 @@ var latlngs = [
     [44.5727700, -79.9783200],
     [44.5724600, -79.9793400],
     [44.5716100, -79.9808100],
+    [44.5714800, -79.9812100],
+    [44.5717400, -79.9814300],
+    [44.5717500, -79.9820600],
+    [44.5711200, -79.9827100],
+    [44.5710600, -79.9830300],
+    [44.5705600, -79.9830800],
+    [44.5704500, -79.9832600],
+    [44.5706100, -79.9832200],
+    [44.5706000, -79.9833900],
+    [44.5704100, -79.9834100],
+    [44.5698100, -79.9848200],
+    [44.5695300, -79.9861300],
+    [44.5700200, -79.9869900],
+    [44.5697200, -79.9869900],
+    [44.5695300, -79.9875600],
+    [44.5692000, -79.9870400],
+    [44.5688100, -79.9868400],
+    [44.5686900, -79.9871500],
+    [44.5687800, -79.9876500],
     [44.5680800, -79.9892100],
     [44.5672300, -79.9905900],
     [44.5668300, -79.9908400],
     [44.5665200, -79.9919100],
     [44.5661400, -79.9924500],
-    [44.5654282,-79.9943301],
+    [44.5652500, -79.9945400],
 ];
+
 
 var polyline = L.polyline(latlngs, {color: 'teal', weight: 6}).addTo(map);
 // polyline.bindPopup("<b>Tiny Main Trail</b><br>"); // (Original)
@@ -9024,7 +9059,7 @@ var MadRiverDist9 = L.circle([44.350447,-80.149203], {
     weight: 10,
     radius: 15,
 }).addTo(map);
-MadRiverDist9.bindPopup("<b>KM 45.0</b>").addTo(map);
+MadRiverDist9.bindPopup("<b>KM 45.0</b> (Mad River)").addTo(map);
 
 
 var MadRiverDist10 = L.circle([44.3470242,-80.1932551], { 
@@ -9214,7 +9249,7 @@ var WasagaBeachDist7 = L.circle([44.352654, -80.149727], {
     weight: 10,
     radius: 20,
 }).addTo(map);
-WasagaBeachDist7.bindPopup("<b>KM 50.0</b><br>").addTo(map);
+WasagaBeachDist7.bindPopup("<b>KM 50.0</b> (Wasaga Beach)").addTo(map);
 
 
 
