@@ -1428,8 +1428,8 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
     var pointofinterestPineRide5icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.069185, -78.395176],{icon:pointofinterestPineRide5icon}).addTo(map).bindPopup("<b>Oak Ridge Moraine</b><br>A collection of higher sandy hills deposited by ice sheets during the last ice age. It is a local high area: on the south side the watercourses flow to Lake Ontario; on he north side the streams flow to the Kawartha Lakes.");
          
-    var pointofinterestPineRide6icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
-         L.marker([44.09424, -78.481363],{icon:pointofinterestPineRide6icon}).addTo(map).bindPopup("<b>Ganaraska Forest</b><br>");
+    // var pointofinterestPineRide6icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         // L.marker([44.09424, -78.481363],{icon:pointofinterestPineRide6icon}).addTo(map).bindPopup("<b>Ganaraska Forest</b><br>");
    
     var pointofinterestPineRide7icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
          L.marker([44.194132, -78.5584],{icon:pointofinterestPineRide7icon}).addTo(map).bindPopup("<b>Town of Bethany</b><br>Great view of Bethany in the valley about 1 kilometer to the west and is also a good lunch spot.");     
@@ -1534,12 +1534,14 @@ WildernessCampsite41, WildernessCampsite42, WildernessCampsite43, WildernessCamp
 
 //var poi = L.layerGroup([pointofinterestPineRide1icon, pointofinterestPineRide2icon]);
 
-var Boatlaunch1 = L.marker([44.746299, -79.33628]).bindPopup('Centennial Park - Washago')//.addTo(map);
-var Boatlaunch2 = L.marker([44.615011, -79.413858]).bindPopup('Centennial Park - Orillia')//.addTo(map);
-var Boatlaunch3 = L.marker([44.718197, -79.64836]).bindPopup('Limited Parking / Mainly for <b>Paddle Boats</b> - Coldwater is a pleasant destination!')//.addTo(map);
+var Boatlaunch1 = L.marker([44.746299, -79.33628]).bindPopup('<b>Centennial Park</b> with lots of parking - Washago')//.addTo(map);
+var Boatlaunch2 = L.marker([44.615011, -79.413858]).bindPopup('<b>Couchiching Beach Park</b> with lots of parking - Orillia')//.addTo(map);
+var Boatlaunch3 = L.marker([44.718197, -79.64836]).bindPopup('<b>Limited Parking</b>, but good spot for <b>paddle boats</b> and Coldwater is a pleasant destination for quaint shops and ice cream!')//.addTo(map);
+var Boatlaunch4 = L.marker([44.758445, -79.714089]).bindPopup('<b>Seasonal Bathrooms</b> / Parking for 5+ vehicles - Waubaushene')//.addTo(map);
+var Boatlaunch5 = L.marker([44.751893, -79.625162]).bindPopup('<b>Limited parking</b> - North River')//.addTo(map);
 
 
-var Boatlaunch = L.layerGroup([Boatlaunch1, Boatlaunch2, Boatlaunch3,
+var Boatlaunch = L.layerGroup([Boatlaunch1, Boatlaunch2, Boatlaunch3, Boatlaunch4, Boatlaunch5,
 
 ]);
 
@@ -1562,7 +1564,7 @@ var baseMaps = {
 //Adding additonal info to the LEGEND
 var overlayMarkers = {
     "QEII Provincial Park Campsites": Campsites,
-    "Boat Launch": Boatlaunch,
+    "Paddle Boat Launch": Boatlaunch,
     //"Points of Interest": poi,    // This statement puts a box in the Overlay legend, but the POIs don't toggle ON/OFF. 
 };
 
@@ -1588,6 +1590,90 @@ var layerControl = L.control.layers(baseMaps, overlayMarkers).addTo(map); // **T
                 // GEOLOCATION IS AVAILABLE, SO LONG AS YOU ALLOW YOUR MOBILE DEVICE TO ACCESS YOUR LOCATION.
                 // SO FAR, THERE ARE NO OFFLINE CAPABILITIES, BUT THIS MAP WORKS WELL WITH MINIMAL CELL COVERAGE NONETHELESS.
                 // AND PLEASE... DO NOT FEED THE BEARS! .)
+
+
+    // Pine Ridge Forest Tracts
+
+    var GanaraskaCentralForest = [
+                [44.106272,-78.519344], // KM 39.7
+                [44.109143,-78.505338],
+                [44.102808,-78.502519],
+                [44.107979,-78.481253],
+                [44.089673,-78.472116],
+                [44.090331,-78.469554],
+                [44.102602,-78.475091],
+                [44.105068,-78.464517],
+                [44.0749945,-78.4499790], 
+                [44.076212,-78.445264], //Blake Road
+                [44.067678, -78.441039], // Blake Road & Oak Hill Road
+                [44.065376,-78.450672],
+                [44.082130,-78.459136],
+                [44.079787,-78.471628],
+                [44.067741,-78.465534],
+                [44.066181,-78.473034],
+                [44.071359,-78.475622],
+                [44.070208,-78.480131],
+                [44.077132,-78.483554],
+                [44.072349,-78.504407],
+                [44.106272,-78.519344],
+                
+
+    ];
+
+var polygon = L.polygon(GanaraskaCentralForest, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.3     // Fill transparency
+    }).addTo(map);
+    polygon.bindPopup("Ganaraska Forest<b> - Central Tract</b><p><b>Activities:</b> hiking, mountain biking, horseback riding, cross-country skiing, snowshoeing. <p>");
+
+
+var GanaraskaForest2 = [
+               [44.080599,-78.594686],  // NW Boundary Road
+               [44.098623,-78.515862],
+               [44.072894,-78.504797],
+               [44.070248,-78.517298],
+               [44.075785,-78.519958],
+               [44.074147,-78.526800],
+               [44.069641,-78.525005],
+               [44.069518,-78.527571],
+               [44.071139,-78.528164],
+               [44.070657,-78.530662],
+               [44.073909,-78.532344],
+               [44.072825,-78.537262],
+               [44.066809,-78.534456],
+               [44.064875,-78.544199],
+               [44.060428,-78.542319],
+               [44.059140,-78.548896],
+               [44.063527,-78.550780],
+               [44.061886,-78.560345],
+               [44.053241,-78.557067],
+               [44.052039,-78.562153],
+               [44.060331,-78.565611],
+               [44.058330,-78.575108],
+               [44.049616,-78.571418],
+               [44.048302,-78.576838],
+               [44.045817,-78.580407],
+               [44.045756,-78.580327],
+               [44.065102,-78.588376],
+               [44.063782,-78.593550],
+               [44.072307,-78.596839],
+               [44.073628,-78.591664],
+               [44.080599,-78.594686],
+                
+
+    ];
+
+var polygon = L.polygon(GanaraskaForest2, {
+      color: 'salmon',       // Border color
+      weight: 2,           // Border thickness
+      fillColor: 'salmon', // Fill color
+      fillOpacity: 0.3     // Fill transparency
+    }).addTo(map);
+    polygon.bindPopup("<b>Ganaraska Forest 2 Tract</b><p><b>Activities:</b> hiking, mountain biking, horseback riding, cross-country skiing, snowshoeing. <p>");
+
+
 
 
     // PINE RIDGE MAIN TRAIL
