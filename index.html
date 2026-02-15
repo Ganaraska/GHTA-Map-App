@@ -913,25 +913,46 @@ var polyline = L.polyline(Map33, {
 
 // TEMPORARY LAYERS
 
-// 7875 Sideroad 15 & 16 Nottawasaga 
+                // 7875 Sideroad 15 & 16 Nottawasaga 
 
-      //      var LandParcel_7875 = [
-       //             [44.349655, -80.166325],
-      //              [44.351335, -80.15822],
-     //               [44.354093, -80.158842],
-      //              [44.354135, -80.158606],
-      //              [44.348723, -80.157388],
-      //              [44.346962, -80.165618],
-      //              [44.349655, -80.166325],
+        //   var LandParcel_7875 = [
+           //      [44.349655, -80.166325],
+          //         [44.351335, -80.15822],
+           //        [44.354093, -80.158842],
+           //         [44.354135, -80.158606],
+          //          [44.348723, -80.157388],
+          //          [44.346962, -80.165618],
+           //         [44.349655, -80.166325],
 
-      //      ]
+          // ]
 
-       //     var polyline = L.polyline(LandParcel_7875, {
-       //         color: 'red',      
-      //          weight: 3,          
-       //     }).addTo(map);
+           //var polyline = L.polyline(LandParcel_7875, {
+          //      color: 'crimson',      
+          //      weight: 4,          
+        //    }).addTo(map);
 
-      //      polyline.bindPopup("7875 Sideroad 15 & 16 Nottawasaga")
+          //  polyline.bindPopup("<b>7875 15/16 SIDEROAD NOTTAWASAGA</b>, CLEARVIEW<br>Land owner removes permission to cross their land.");
+
+
+
+            // 2374 Riverside Dr
+
+         //  var LandParcel_2374 = [
+         //     [44.341408, -80.16442342],
+         //     [44.3448339, -80.14872034],
+         //     [44.3428934, -80.1496141],
+         //     [44.342455019, -80.14973396],
+         //     [44.34204850, -80.1497840],
+         //     [44.338974920, -80.1638540],
+         //     [44.341408, -80.16442342],
+        //   ]
+
+        //   var polyline = L.polyline(LandParcel_2374, {
+        //        color: 'mediumorchid',      
+         //       weight: 6,          
+         //   }).addTo(map);
+
+         //   polyline.bindPopup("<b>2374 RIVERSIDE DRIVE</b>, CLEARVIEW<br>Potential re-route across this parcel.");
 
 
 
@@ -1121,7 +1142,8 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
     var hazardWilderness5icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
         L.marker([44.829935, -79.058466],{icon:hazardWilderness5icon}).addTo(map).bindPopup("Difficult water crossing");   
         
-
+var hazardWilderness6icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        L.marker([44.858552, -78.812385],{icon:hazardWilderness6icon}).addTo(map).bindPopup("Gee, these <b>beavers</b> get everywhere! :)");   
 
 
 
@@ -1220,7 +1242,7 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         // Parking WILDERNESS
 
     var parkingWilderness1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-        L.marker([44.806185,-78.813349],{icon:parkingWilderness1icon}).addTo(map).bindPopup("Grassy parking lot behind storage building kindly provided for GHTA use by Bill & Sandy Valentine.");
+        L.marker([44.806185,-78.813349],{icon:parkingWilderness1icon}).addTo(map).bindPopup("Grassy parking lot behind storage building kindly provided for GHTA use by Paul Pilon.");
 
     var parkingWilderness2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
         L.marker([44.859436, -78.815888],{icon:parkingWilderness2icon}).addTo(map).bindPopup("There's a parking lot by Devil's Lake Road & Deep Bay Road.");
@@ -1236,7 +1258,7 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
         // Parking ORILLIA
 
     var parkingOrillia1icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
-        L.marker([44.756683,-79.155683],{icon:parkingOrillia1icon}).addTo(map).bindPopup("<b>Parking</b> for 3-4 cars roadside on NW corner of Sadowa and Chisolm Trail.");
+        L.marker([44.756683,-79.155683],{icon:parkingOrillia1icon}).addTo(map).bindPopup("<b>Parking</b> for 3-4 cars roadside on NW corner of Sadowa and Chisholm Trail.");
     
     var parkingOrillia2icon = L.icon({iconUrl: 'Parking.png', iconSize: [25, 25]});
         L.marker([44.641726, -79.219593],{icon:parkingOrillia2icon}).addTo(map).bindPopup("<b>Limited parking</b> along roadside on Con 12, west of HWY 169.");
@@ -1453,7 +1475,7 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
          L.marker([44.750293,-79.115505],{icon:pointofinterestWilderness1icon}).addTo(map).bindPopup("High Falls");
 
     var pointofinterestWilderness2icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
-         L.marker([44.757500,-79.125095],{icon:pointofinterestWilderness2icon}).addTo(map).bindPopup("Sedowa Mountain");  
+         L.marker([44.757500,-79.125095],{icon:pointofinterestWilderness2icon}).addTo(map).bindPopup("Sadowa Mountain");  
          
          
     var pointofinterestWilderness3icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
@@ -1467,6 +1489,24 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
          L.marker([44.828937, -78.855426],{icon:pointofinterestWilderness5icon}).addTo(map).bindPopup("Scrabble Mountain"); 
 
 
+    var pointofinterestWilderness6icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.83107, -78.831004],{icon:pointofinterestWilderness6icon}).addTo(map).bindPopup("Black Creek Junction"); 
+
+
+    var pointofinterestWilderness7icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.857675, -78.821664],{icon:pointofinterestWilderness7icon}).addTo(map).bindPopup("Queen's Corridor Junction"); 
+
+
+    var pointofinterestWilderness8icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.859822,-78.862531],{icon:pointofinterestWilderness8icon}).addTo(map).bindPopup("Petticoat Junction"); 
+
+
+    var pointofinterestWilderness9icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.842947,-79.030786],{icon:pointofinterestWilderness9icon}).addTo(map).bindPopup("Otter Junction"); 
+
+
+    var pointofinterestWilderness10icon = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [25, 25]});
+         L.marker([44.798267, -79.091178],{icon:pointofinterestWilderness10icon}).addTo(map).bindPopup("Black Fly Junction"); 
 
 
 
@@ -1536,15 +1576,36 @@ WildernessCampsite41, WildernessCampsite42, WildernessCampsite43, WildernessCamp
 
 var Boatlaunch1 = L.marker([44.746299, -79.33628]).bindPopup('<b>Centennial Park</b> with lots of parking - Washago')//.addTo(map);
 var Boatlaunch2 = L.marker([44.615011, -79.413858]).bindPopup('<b>Couchiching Beach Park</b> with lots of parking - Orillia')//.addTo(map);
-var Boatlaunch3 = L.marker([44.718197, -79.64836]).bindPopup('<b>Limited Parking</b>, but good spot for <b>paddle boats</b> and Coldwater is a pleasant destination for quaint shops and ice cream!')//.addTo(map);
-var Boatlaunch4 = L.marker([44.758445, -79.714089]).bindPopup('<b>Seasonal Bathrooms</b> / Parking for 5+ vehicles - Waubaushene')//.addTo(map);
-var Boatlaunch5 = L.marker([44.751893, -79.625162]).bindPopup('<b>Limited parking</b> - North River')//.addTo(map);
+var Boatlaunch3 = L.marker([44.717896, -79.648198]).bindPopup('<b>Limited Parking</b>, but good spot for <b>paddle boats</b> and Coldwater is a pleasant destination for quaint shops and ice cream!')//.addTo(map);
+var Boatlaunch4 = L.marker([44.758345, -79.714212]).bindPopup('<b>Seasonal Bathrooms</b> / Parking for 5+ vehicles - Waubaushene')//.addTo(map);
+var Boatlaunch5 = L.marker([44.751728, -79.625217]).bindPopup('<b>Limited parking</b> - North River')//.addTo(map);
 
 
 var Boatlaunch = L.layerGroup([Boatlaunch1, Boatlaunch2, Boatlaunch3, Boatlaunch4, Boatlaunch5,
 
 ]);
 
+
+
+
+
+
+// LAND PARCEL IMAGE(S)
+
+     //var LandParcel = "LandParcelMadRiver.jpeg",
+         //   imageBounds = [[44.355748703, -80.1968700], [44.336768, -80.146070]];
+         //   L.imageOverlay(LandParcel, imageBounds).addTo(map);
+
+
+var LandParcel1 = L.marker([44.349662, -80.162096]).bindPopup('7875 15/16 SIDEROAD NOTTAWASAGA')//.addTo(map);
+var LandParcel2 = L.marker([44.341927, -80.156087]).bindPopup('2374 RIVERSIDE DRIVE, CLEARVIEW')//.addTo(map);
+var LandParcel3 = L.marker([44.348158, -80.153341]).bindPopup('2274 CONCESSION 6 SOUTH NOTTAWASAGA, CLEARVIEW')//.addTo(map);
+var LandParcel4 = L.marker([44.345826, -80.154457]).bindPopup('2302 CONCESSION 6 SOUTH NOTTAWASAGA, CLEARVIEW')//.addTo(map);
+var LandParcel5 = L.marker([44.344383, -80.161065]).bindPopup('Address unavailable according to Simcoe County')//.addTo(map);
+
+
+
+var LandParcel = L.layerGroup([LandParcel1, LandParcel2, LandParcel3, LandParcel4, LandParcel5, ]);
 
 
  // ADDING OVERLAY LAYERS SIMILAR TO A LEGEND IN TOP RIGHT CORNER
@@ -1555,6 +1616,7 @@ var baseMaps = {
     "OpenStreetMap (Humanitarian)": osm_HOT,
     "OpenTopoMap (Contours)": otm,
     "ESRI World Imagery": Esri_WorldImagery,
+
     //"Stadia Imagery": Stadia_AlidadeSatellite, // Need an API Key. Boo...
 };
 
@@ -1565,6 +1627,8 @@ var baseMaps = {
 var overlayMarkers = {
     "QEII Provincial Park Campsites": Campsites,
     "Paddle Boat Launch": Boatlaunch,
+   // "Land Parcel": LandParcel,
+
     //"Points of Interest": poi,    // This statement puts a box in the Overlay legend, but the POIs don't toggle ON/OFF. 
 };
 
@@ -4956,7 +5020,7 @@ var circledotWildernessStart = L.circle([44.8068830, -78.8132760], {
 
 
         var polyline = L.polyline(latlngs, {color: 'teal', weight: 4}).addTo(map);
-        polyline.bindPopup("<b>Wilderness Side Trail</b><br>Ragged Rappids<br>");
+        polyline.bindPopup("<b>Wilderness Side Trail</b><br>Ragged Rapids<br>");
 
 
 
