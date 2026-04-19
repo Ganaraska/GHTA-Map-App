@@ -1152,7 +1152,28 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
 
 
-    
+ // MAIN INFO MARKER
+
+            //var Introduction1 = "GHTA-Logo-2021.svg",
+                //imageBounds = [[44.665044, -79.530054], [44.559714, -79.360124]];
+                //L.imageOverlay(Introduction1, imageBounds).addTo(map).bindPopup("The Ganaraska Hiking Trail");
+
+                // CIRCLE FOR BINDPOPUP
+
+                        //var circleIntroduction1 = L.circle([44.64767, -79.501545], { 
+                        //color: 'grey',
+                        //fillColor: '#808080',
+                        //fillOpacity: 0.3,
+                        //weight: 3,
+                        //radius: 2000
+                        // }).addTo(map);
+                    //circleIntroduction1.bindPopup("The Ganaraska Hiking Trail Network <b>MapApp</b>");
+
+
+     var Introduction1 = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [50, 50]});
+          L.marker([44.648054, -79.501667],{icon:Introduction1}).addTo(map).bindPopup("The <b>MapApp</b> is <b>geolocation enabled</b>, meaning that the app pinpoints your exact location constantly as you walk about. " + 
+          "If you want to explore the MapApp further beyond your location, then turn off your location settings and then reestablish them when you want the geolocation function to resume. " + 
+        "This feature works great on any web browser, so long as you have Internet or cell coverage. It will NOT work offline, at least not yet.");   
 
     
     
