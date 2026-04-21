@@ -65,14 +65,35 @@
 
 
     <div id="map"></div>
-    
+
+
+
+<style>
+       
+.info-button {
+  background: rgb(241, 39, 56);
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 28px;   /* ← change this to whatever size you want */
+  color: white;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+</style>
+  
 </body>
 
 
 <script>
 
 var map = L.map('map');
-map.setView([44.613927, -79.414964], 13);
+map.setView([44.613927, -79.414964], 12);
 
 
 // DEFAULT OSM LAYER
@@ -127,6 +148,60 @@ metric: true, // Show metric units (m/km)
 imperial: true, // Show imperial units (ft/mi)
 updateWhenIdle: false // Update the scale bar on move
 }).addTo(map);
+
+
+
+// INFO BUTTON (WITH STYLE ABOVE THAT CAN BE CHANGED :)
+
+// Custom Info Button Control
+var InfoControl = L.Control.extend({
+    onAdd: function(map) {
+        var container = L.DomUtil.create('div', 'info-button');
+        container.innerHTML = 'i';
+
+        L.DomEvent.disableClickPropagation(container);
+
+        container.onclick = () => {
+            // Create a popup at a fixed position (top-right corner offset)
+            L.popup({
+                closeButton: true,
+                autoClose: true,
+                closeOnClick: false,
+                className: 'info-popup'
+            })
+            .setLatLng(map.getCenter())   // popup appears at map center
+            .setContent(`
+                <strong>About the MapApp</strong><br><br>
+                • The entire <b>Ganaraska</b> trail network spans 500 kilometres, 
+                    from Port Hope in the east through Queen Elizabeth II Wildlands Provincial Park and Simcoe County Forest tracts 
+                    all the way to Georgian Bay and to the edge of the Niagara Escarpment. <br><br>
+                • The MapApp is <b>geolocation enabled</b>. It shows your current location constantly as you walk about. <br><br>
+                • Turn off <b>location permissions</b> in your web browser if you want to explore other areas of the MapApp.<br><br>
+                • This app works great with <b>Internet</b> or <b>cell</b> coverage and on most mobile devices. It will NOT work offline, at least not yet.<br><br>
+                • A <b>Popup</b> information bubble will appear anywhere you click on the map, like on the trail itself or on a parking lot, etc.,<br><br>
+                • A <b>printable section</b> is accessed by clicking on the edge of a white square.<br><br>
+                • <b>Trail Guide</b> links are accessed by clicking anywhere along a trail or at the beginning of each trail section witin the circle.<br><br>
+                • Clicking anywhere else will show <b>latitude</b> and <b>longitude</b> in decimal degrees at that location.<br><br>
+                • In the top-left corner is a <b>search button</b>. A new window will pop up. Type your search and it will find anything within the OpenStreetMap (OSM) database. 
+                    Make sure you include an Ontario or Canadian reference in your search since it’s biased towards the UK, Europe and the US.<br><br> 
+                    Unfortunately, it will NOT search for anything I’ve coded, like the club trails and forest tracts, 
+                    unless I add them to the OSM database or find a new solution (working on it).<br><br>
+                • In the top-right corner is a button that offers <b>additional map backgrounds</b>. The OpenStreetMap (Standard) is the default. 
+                    The OSM Cycle/Hike map includes the Trans Canada Trail, and two styles have 10 metre contours and there's a satellite option too! <br><br>
+                • A <b>scale-bar</b> is at the bottom-left-corner and adjusts with all zoom levels.<br><br>
+                • At the top-right-corner is a <b>measure tool</b> to find distances between points anywhere along the map.<br><br>
+                • Have <b>fun</b> clicking about! <b>:</b> )
+
+            `)
+            .openOn(map);
+        };
+
+        return container;
+    }
+});
+
+// Add control to map
+map.addControl(new InfoControl({ position: 'topright' }));
 
 
 
@@ -1152,7 +1227,11 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
 
 
- // MAIN INFO MARKER
+    
+
+    
+
+    // MAIN INFO MARKER (NOT IN USE - EARLY ATTEMPT - NOW USE AN "i" IN TOP RIGHT CORNER.)
 
             //var Introduction1 = "GHTA-Logo-2021.svg",
                 //imageBounds = [[44.665044, -79.530054], [44.559714, -79.360124]];
@@ -1170,14 +1249,60 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
                     //circleIntroduction1.bindPopup("The Ganaraska Hiking Trail Network <b>MapApp</b>");
 
 
-     var Introduction1 = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [50, 50]});
-          L.marker([44.648054, -79.501667],{icon:Introduction1}).addTo(map).bindPopup("The <b>MapApp</b> is <b>geolocation enabled</b>, meaning that the app pinpoints your exact location constantly as you walk about. " + 
-          "If you want to explore the MapApp further beyond your location, then turn off your location settings and then reestablish them when you want the geolocation function to resume. " + 
-        "This feature works great on any web browser, so long as you have Internet or cell coverage. It will NOT work offline, at least not yet.");   
+           // 1. Create your SVG
+//const svgButton = `
+//<svg width="220" height="70" viewBox="0 0 220 70">
+  //<rect x="5" y="5" rx="18" ry="18" width="210" height="60"
+        //fill="#ff6b6b" stroke="#d64545" stroke-width="4"/>
+  //<text x="110" y="43" font-family="Arial, sans-serif"
+       // font-size="24" fill="white" text-anchor="middle">
+    //Click me first
+ //</text>
+//</svg>
+//`;
+
+// 2. Create the icon
+//const icon = L.divIcon({
+ // html: svgButton,
+  //className: 'no-default-icon',
+  //iconSize: [220, 70]
+//});
+
+// 3. Create the marker
+//const clickmefirstmarker = L.marker([44.665769, -79.407178], { icon })
+ // .addTo(map)
+  //.bindPopup("<b>Welcome to the Ganaraska Hiking Trail MapApp!</b><br><br>" +
+         // "• The entire trail network spans 500 kilometres in length. <br><br>" +
+         // "• The MapApp is <b>geolocation enabled</b>. It shows your current location constantly as you walk about. " + 
+         // "Turn off location permissions in your web browser if you want to explore other areas of the MapApp.<br><br> " + 
+          //  "• This app works great with Internet or cell coverage and on most mobile devices. It will NOT work offline, at least not yet.<br><br>" +
+           // "• A <b>Popup</b> information bubble will appear anywhere you click on the map, like on the trail itself or on a parking lot, etc. <br><br>" +
+          //  "• Clicking anywhere else will show you the <b>latitude</b> and <b>longitude</b> in decimal degrees at that location. <br><br>" +
+           // "• ");
+
+           
+
+           
+
+
+  // .on('click', () => alert("Clicked!"));
+
+
+
+     //var Introduction1 = L.icon({iconUrl: 'info-svgrepo-com.svg', iconSize: [50, 50]});
+         // L.marker([44.648054, -79.501667],{icon:Introduction1}).addTo(map).bindPopup("<b>Welcome to the Ganaraska Hiking Trail MapApp!</b><br><br>" +
+         // "• The entire trail network spans 500 kilometres in length. <br><br>" +
+         // "• The MapApp is <b>geolocation enabled</b>. It shows your current location constantly as you walk about. " + 
+         // "Turn off location permissions in your web browser if you want to explore other areas of the MapApp.<br><br> " + 
+           // "• This app works great with Internet or cell coverage and on most mobile devices. It will NOT work offline, at least not yet.<br><br>" +
+           // "• A <b>Popup</b> information bubble will appear anywhere you click on the map, like on the trail itself or on a parking lot, etc. <br><br>" +
+           // "• Clicking anywhere else will show you the <b>latitude</b> and <b>longitude</b> in decimal degrees at that location. <br><br>" +
+           // "• ");
+
+
 
     
-    
-                // HAZARD SYMBOLS
+    // HAZARD SYMBOLS
 
     var hazardWilderness1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
         L.marker([44.825848, -78.812276],{icon:hazardWilderness1icon}).addTo(map).bindPopup("Beaver Dam");
@@ -1217,17 +1342,17 @@ circleOroMedonteStart.bindPopup('<a href="https://ganaraska-hiking-trail.org/wp-
 
     var hazardMidland1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
         L.marker([44.729669, -79.802372],{icon:hazardMidland1icon}).addTo(map).bindPopup("DANGEROUS X-ING OVER HWY 12 <br>(a.k.a. <b>Isobel's Crossing .</b>)");  
-	
-// NO LONGER NECESSARY ACCORDING TO MAD RIVER EXEC
-	
-//   var hazardMadRiver1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
-//        L.marker([44.321139, -79.869021],{icon:hazardMadRiver1icon}).addTo(map).bindPopup("Be cautions crossing the bridge over <b>Nottawasaga River</b>.");
-	
-//   var hazardMadRiver2icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
-//      L.marker([44.319356, -79.881458],{icon:hazardMadRiver2icon}).addTo(map).bindPopup("Be cautions crossing the bridge over <b>Pine River</b>.");
-	
-//   var hazardMadRiver3icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
-//    L.marker([44.32461, -79.907383],{icon:hazardMadRiver3icon}).addTo(map).bindPopup("Be cautions crossing the bridge over <b>Mad River</b>.");
+
+    // NO LONGER NECESSARY ACCORDING TO MAD RIVER EXEC
+
+    // var hazardMadRiver1icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+        // L.marker([44.321139, -79.869021],{icon:hazardMadRiver1icon}).addTo(map).bindPopup("Be cautions crossing the bridge over <b>Nottawasaga River</b>.");
+
+    // var hazardMadRiver2icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+      //  L.marker([44.319356, -79.881458],{icon:hazardMadRiver2icon}).addTo(map).bindPopup("Be cautions crossing the bridge over <b>Pine River</b>.");
+
+    // var hazardMadRiver3icon = L.icon({iconUrl: 'hazard-sign-on-transparent-background.png', iconSize: [30, 30]});
+       // L.marker([44.32461, -79.907383],{icon:hazardMadRiver3icon}).addTo(map).bindPopup("Be cautions crossing the bridge over <b>Mad River</b>.");
 
 
 
